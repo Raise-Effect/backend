@@ -2,7 +2,7 @@
 This is the backend REST API for Hack Oregon's Job's Economy team. It consists of a Flask application, as well as Vagrant and Docker scripts.
 
 ##### To run locally without Vagrant and Docker: #####
-`cd backend`
+`cd jobs-economy`
 
 `virtualenv env`
 
