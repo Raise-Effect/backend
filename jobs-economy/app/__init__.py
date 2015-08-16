@@ -19,6 +19,3 @@ from app.api.controllers import api as api_module
 
 # Register blueprint(s)
 app.register_blueprint(api_module)
-
-# Build db
-db.create_all()
