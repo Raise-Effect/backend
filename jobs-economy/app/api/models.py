@@ -1,170 +1,173 @@
 # coding: utf-8
-from sqlalchemy import Column, ForeignKey, Integer, Numeric, String, Text, text
-from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
 
+from app import db
+from sqlalchemy import text
 
-Base = declarative_base()
-metadata = Base.metadata
-
-
-class Calculatedstat(Base):
+class CalculatedStats(db.Model):
     __tablename__ = 'calculatedstats'
 
-    calculatedstatsid = Column(Integer, primary_key=True, server_default=text("nextval('calculatedstats_calculatedstatsid_seq'::regclass)"))
-    fips = Column(ForeignKey(u'counties.fips'))
-    percentorkids = Column(Numeric)
-    a1allper = Column(Numeric)
-    a2allper = Column(Numeric)
-    c0allper = Column(Numeric)
+    calculatedstatsid = db.Column(db.Integer, primary_key=True,
+        server_default=text("nextval('calculatedstats_calculatedstatsid_seq'::regclass)"))
+    fips = db.Column(db.ForeignKey(u'counties.fips'))
+    percentorkids = db.Column(db.Float)
+    a1allper = db.Column(db.Float)
+    a2allper = db.Column(db.Float)
+    c0allper = db.Column(db.Float)
 
-    county = relationship(u'County')
+    county = db.relationship(u'County')
 
 
-class County(Base):
+class County(db.Model):
     __tablename__ = 'counties'
 
-    fips = Column(Integer, primary_key=True)
-    county = Column(String(40))
+    fips = db.Column(db.Integer, primary_key=True)
+    county = db.Column(db.String(40))
 
 
-class Familytype(Base):
+class FamilyType(db.Model):
     __tablename__ = 'familytype'
 
-    familycode = Column(String(10), primary_key=True)
-    descriptionfc = Column(Text)
-    familycoderollup = Column(String(7))
-    descriptionfcr = Column(Text)
-    adults = Column(Integer)
-    infants = Column(Integer)
-    preschoolers = Column(Integer)
-    schoolage = Column(Integer)
-    teenagers = Column(Integer)
-    children = Column(Integer)
+    familycode = db.Column(db.String(10), primary_key=True)
+    descriptionfc = db.Column(db.Text)
+    familycoderollup = db.Column(db.String(7))
+    descriptionfcr = db.Column(db.Text)
+    adults = db.Column(db.Integer)
+    infants = db.Column(db.Integer)
+    preschoolers = db.Column(db.Integer)
+    schoolage = db.Column(db.Integer)
+    teenagers = db.Column(db.Integer)
+    children = db.Column(db.Integer)
 
 
-class Laborstat(Base):
+class LaborStats(db.Model):
     __tablename__ = 'laborstats'
 
-    laborstatsid = Column(Integer, primary_key=True, server_default=text("nextval('laborstats_laborstatsid_seq'::regclass)"))
-    fips = Column(ForeignKey(u'counties.fips'))
-    laborforce = Column(Numeric)
-    employed = Column(Numeric)
-    unemployed = Column(Numeric)
-    unemploymentrate = Column(Numeric)
-    urseasonaladj = Column(Numeric)
-    year = Column(Integer)
+    laborstatsid = db.Column(db.Integer, primary_key=True,
+        server_default=text("nextval('laborstats_laborstatsid_seq'::regclass)"))
+    fips = db.Column(db.ForeignKey(u'counties.fips'))
+    laborforce = db.Column(db.Float)
+    employed = db.Column(db.Float)
+    unemployed = db.Column(db.Float)
+    unemploymentrate = db.Column(db.Float)
+    urseasonaladj = db.Column(db.Float)
+    year = db.Column(db.Integer)
 
-    county = relationship(u'County')
+    county = db.relationship(u'County')
 
 
-class Population(Base):
+class Population(db.Model):
     __tablename__ = 'population'
 
-    populationid = Column(Integer, primary_key=True, server_default=text("nextval('population_populationid_seq'::regclass)"))
-    fips = Column(ForeignKey(u'counties.fips'))
-    population = Column(Numeric)
-    adults = Column(Numeric)
-    kids = Column(Numeric)
-    kidspresentc = Column(Numeric)
-    a1cc = Column(Numeric)
-    a2s2c = Column(Numeric)
-    a1c0c = Column(Numeric)
-    a1teenc = Column(Numeric)
-    kidspresentcper = Column(Numeric)
-    a1ccper = Column(Numeric)
-    a2s2cper = Column(Numeric)
-    a1c0cper = Column(Numeric)
-    a1teencper = Column(Numeric)
-    mindiff = Column(Numeric)
-    mostcommonfamilytype = Column(ForeignKey(u'familytype.familycode'))
-    year = Column(Integer)
+    populationid = db.Column(db.Integer, primary_key=True,
+        server_default=text("nextval('population_populationid_seq'::regclass)"))
+    fips = db.Column(db.ForeignKey(u'counties.fips'))
+    population = db.Column(db.Float)
+    adults = db.Column(db.Float)
+    kids = db.Column(db.Float)
+    kidspresentc = db.Column(db.Float)
+    a1cc = db.Column(db.Float)
+    a2s2c = db.Column(db.Float)
+    a1c0c = db.Column(db.Float)
+    a1teenc = db.Column(db.Float)
+    kidspresentcper = db.Column(db.Float)
+    a1ccper = db.Column(db.Float)
+    a2s2cper = db.Column(db.Float)
+    a1c0cper = db.Column(db.Float)
+    a1teencper = db.Column(db.Float)
+    mindiff = db.Column(db.Float)
+    mostcommonfamilytype = db.Column(db.ForeignKey(u'familytype.familycode'))
+    year = db.Column(db.Integer)
 
-    county = relationship(u'County')
-    familytype = relationship(u'Familytype')
+    county = db.relationship(u'County')
+    familytype = db.relationship(u'Familytype')
 
 
-class Puma(Base):
+class Puma(db.Model):
     __tablename__ = 'puma'
 
-    pumafipsid = Column(Integer, primary_key=True, server_default=text("nextval('puma_pumafipsid_seq'::regclass)"))
-    fips = Column(ForeignKey(u'counties.fips'))
-    pumacode = Column(Integer)
-    areaname = Column(Text)
-    pumaname = Column(Text)
-    pumapopulation = Column(Numeric)
-    pumaweight = Column(Numeric)
+    pumafipsid = db.Column(db.Integer, primary_key=True,
+        server_default=text("nextval('puma_pumafipsid_seq'::regclass)"))
+    fips = db.Column(db.ForeignKey(u'counties.fips'))
+    pumacode = db.Column(db.Integer)
+    areaname = db.Column(db.Text)
+    pumaname = db.Column(db.Text)
+    pumapopulation = db.Column(db.Float)
+    pumaweight = db.Column(db.Float)
 
-    county = relationship(u'County')
+    county = db.relationship(u'County')
 
 
-class Sssbudget(Base):
+class SssBudget(db.Model):
     __tablename__ = 'sssbudget'
 
-    sssbudgetid = Column(Integer, primary_key=True, server_default=text("nextval('sssbudget_sssbudgetid_seq'::regclass)"))
-    familycode = Column(ForeignKey(u'familytype.familycode'))
-    housing = Column(Numeric)
-    childcare = Column(Numeric)
-    food = Column(Numeric)
-    transportation = Column(Numeric)
-    healthcare = Column(Numeric)
-    miscellaneous = Column(Numeric)
-    taxes = Column(Numeric)
-    fips = Column(ForeignKey(u'counties.fips'))
-    year = Column(Integer)
+    sssbudgetid = db.Column(db.Integer, primary_key=True,
+        server_default=text("nextval('sssbudget_sssbudgetid_seq'::regclass)"))
+    familycode = db.Column(db.ForeignKey(u'familytype.familycode'))
+    housing = db.Column(db.Float)
+    childcare = db.Column(db.Float)
+    food = db.Column(db.Float)
+    transportation = db.Column(db.Float)
+    healthcare = db.Column(db.Float)
+    miscellaneous = db.Column(db.Float)
+    taxes = db.Column(db.Float)
+    fips = db.Column(db.ForeignKey(u'counties.fips'))
+    year = db.Column(db.Integer)
 
-    familytype = relationship(u'Familytype')
-    county = relationship(u'County')
+    familytype = db.relationship(u'Familytype')
+    county = db.relationship(u'County')
 
 
-class Ssscredit(Base):
+class SssCredits(db.Model):
     __tablename__ = 'ssscredits'
 
-    ssscreditsid = Column(Integer, primary_key=True, server_default=text("nextval('ssscredits_ssscreditsid_seq'::regclass)"))
-    familycode = Column(ForeignKey(u'familytype.familycode'))
-    oregonworkingfamilycredit = Column(Numeric)
-    earnedincometax = Column(Numeric)
-    childcaretax = Column(Numeric)
-    childtax = Column(Numeric)
-    fips = Column(ForeignKey(u'counties.fips'))
-    year = Column(Integer)
+    ssscreditsid = db.Column(db.Integer, primary_key=True,
+        server_default=text("nextval('ssscredits_ssscreditsid_seq'::regclass)"))
+    familycode = db.Column(db.ForeignKey(u'familytype.familycode'))
+    oregonworkingfamilycredit = db.Column(db.Float)
+    earnedincometax = db.Column(db.Float)
+    childcaretax = db.Column(db.Float)
+    childtax = db.Column(db.Float)
+    fips = db.Column(db.ForeignKey(u'counties.fips'))
+    year = db.Column(db.Integer)
 
-    familytype = relationship(u'Familytype')
-    county = relationship(u'County')
+    familytype = db.relationship(u'Familytype')
+    county = db.relationship(u'County')
 
 
-class Ssswage(Base):
+class SssWages(db.Model):
     __tablename__ = 'ssswages'
 
-    ssswagesid = Column(Integer, primary_key=True, server_default=text("nextval('ssswages_ssswagesid_seq'::regclass)"))
-    familycode = Column(ForeignKey(u'familytype.familycode'))
-    hourly = Column(Numeric)
-    qualifier = Column(Text)
-    monthly = Column(Numeric)
-    annual = Column(Numeric)
-    fips = Column(ForeignKey(u'counties.fips'))
-    year = Column(Integer)
+    ssswagesid = db.Column(db.Integer, primary_key=True,
+        server_default=text("nextval('ssswages_ssswagesid_seq'::regclass)"))
+    familycode = db.Column(db.ForeignKey(u'familytype.familycode'))
+    hourly = db.Column(db.Float)
+    qualifier = db.Column(db.Text)
+    monthly = db.Column(db.Float)
+    annual = db.Column(db.Float)
+    fips = db.Column(db.ForeignKey(u'counties.fips'))
+    year = db.Column(db.Integer)
 
-    familytype = relationship(u'Familytype')
-    county = relationship(u'County')
+    familytype = db.relationship(u'Familytype')
+    county = db.relationship(u'County')
 
 
-class Wagestat(Base):
+class WageStats(db.Model):
     __tablename__ = 'wagestats'
 
-    wagestatsid = Column(Integer, primary_key=True, server_default=text("nextval('wagestats_wagestatsid_seq'::regclass)"))
-    fips = Column(ForeignKey(u'counties.fips'))
-    medianwage = Column(Numeric)
-    medianhourly = Column(Numeric)
-    lessthan10hour = Column(Numeric)
-    btwn10and15hour = Column(Numeric)
-    totalunder15 = Column(Numeric)
-    totalpercentorjobs = Column(Numeric)
-    countysalary = Column(Numeric)
-    countywage = Column(Numeric)
-    countywageh2 = Column(Numeric)
-    countywagerank = Column(Numeric)
-    countywageh2rank = Column(Numeric)
-    year = Column(Integer)
+    wagestatsid = db.Column(db.Integer, primary_key=True,
+        server_default=text("nextval('wagestats_wagestatsid_seq'::regclass)"))
+    fips = db.Column(db.ForeignKey(u'counties.fips'))
+    medianwage = db.Column(db.Float)
+    medianhourly = db.Column(db.Float)
+    lessthan10hour = db.Column(db.Float)
+    btwn10and15hour = db.Column(db.Float)
+    totalunder15 = db.Column(db.Float)
+    totalpercentorjobs = db.Column(db.Float)
+    countysalary = db.Column(db.Float)
+    countywage = db.Column(db.Float)
+    countywageh2 = db.Column(db.Float)
+    countywagerank = db.Column(db.Float)
+    countywageh2rank = db.Column(db.Float)
+    year = db.Column(db.Integer)
 
-    county = relationship(u'County')
+    county = db.relationship(u'County')
