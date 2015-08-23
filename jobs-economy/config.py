@@ -6,7 +6,7 @@ import os
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
 # Define the database, SQLite
-SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(BASE_DIR, 'app.db.')
+SQLALCHEMY_DATABASE_URI = 'postgresql://hoadmin:hopassword@hodor.cyebmqn3motm.us-west-2.rds.amazonaws.com:5432/test'
 DATABASE_CONNECT_OPTIONS = {}
 
 # Application threads. A common general assumption is

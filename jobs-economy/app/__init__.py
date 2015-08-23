@@ -9,6 +9,8 @@ app.config.from_object('config')
 
 db = SQLAlchemy(app)
 
+from .api import models
+
 # Sample HTTP error handling
 @app.errorhandler(404)
 def not_found(error):
