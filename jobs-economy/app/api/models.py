@@ -81,8 +81,9 @@ class Population(db.Model):
     year = db.Column(db.Integer)
 
     county = db.relationship(u'County',
-        backref=db.backref('population', lazy="dynamic")
-    familytype = db.relationship(u'FamilyType')
+        backref=db.backref('population', lazy="dynamic"))
+    familytype = db.relationship(u'FamilyType',
+        backref=db.backref('population', lazy="dynamic"))
 
 
 class Puma(db.Model):
@@ -117,7 +118,8 @@ class SssBudget(db.Model):
     fips = db.Column(db.ForeignKey(u'counties.fips'))
     year = db.Column(db.Integer)
 
-    familytype = db.relationship(u'FamilyType')
+    familytype = db.relationship(u'FamilyType',
+        backref=db.backref('sss_budget', lazy="dynamic"))
     county = db.relationship(u'County',
         backref=db.backref('sss_budget', lazy="dynamic"))
 
@@ -135,7 +137,8 @@ class SssCredits(db.Model):
     fips = db.Column(db.ForeignKey(u'counties.fips'))
     year = db.Column(db.Integer)
 
-    familytype = db.relationship(u'FamilyType')
+    familytype = db.relationship(u'FamilyType',
+        backref=db.backref('sss_credits', lazy="dynamic"))
     county = db.relationship(u'County',
         backref=db.backref('sss_credits', lazy="dynamic"))
 
@@ -153,7 +156,8 @@ class SssWages(db.Model):
     fips = db.Column(db.ForeignKey(u'counties.fips'))
     year = db.Column(db.Integer)
 
-    familytype = db.relationship(u'FamilyType')
+    familytype = db.relationship(u'FamilyType',
+        backref=db.backref('sss_wages', lazy="dynamic"))
     county = db.relationship(u'County',
         backref=db.backref('sss_wages', lazy="dynamic"))
 
