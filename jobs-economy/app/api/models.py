@@ -14,7 +14,8 @@ class CalculatedStats(db.Model):
     a2allper = db.Column(db.Float)
     c0allper = db.Column(db.Float)
 
-    county = db.relationship(u'County')
+    county = db.relationship(u'County',
+        backref=db.backref('calculated_stats', lazy="dynamic")
 
 
 class County(db.Model):
@@ -52,7 +53,8 @@ class LaborStats(db.Model):
     urseasonaladj = db.Column(db.Float)
     year = db.Column(db.Integer)
 
-    county = db.relationship(u'County')
+    county = db.relationship(u'County',
+        backref=db.backref('labor_stats', lazy="dynamic"))
 
 
 class Population(db.Model):
@@ -78,7 +80,8 @@ class Population(db.Model):
     mostcommonfamilytype = db.Column(db.ForeignKey(u'familytype.familycode'))
     year = db.Column(db.Integer)
 
-    county = db.relationship(u'County')
+    county = db.relationship(u'County',
+        backref=db.backref('population', lazy="dynamic")
     familytype = db.relationship(u'FamilyType')
 
 
@@ -94,7 +97,8 @@ class Puma(db.Model):
     pumapopulation = db.Column(db.Float)
     pumaweight = db.Column(db.Float)
 
-    county = db.relationship(u'County')
+    county = db.relationship(u'County',
+        backref=db.backref('puma', lazy="dynamic"))
 
 
 class SssBudget(db.Model):
@@ -114,7 +118,8 @@ class SssBudget(db.Model):
     year = db.Column(db.Integer)
 
     familytype = db.relationship(u'FamilyType')
-    county = db.relationship(u'County')
+    county = db.relationship(u'County',
+        backref=db.backref('sss_budget', lazy="dynamic"))
 
 
 class SssCredits(db.Model):
@@ -131,7 +136,8 @@ class SssCredits(db.Model):
     year = db.Column(db.Integer)
 
     familytype = db.relationship(u'FamilyType')
-    county = db.relationship(u'County')
+    county = db.relationship(u'County',
+        backref=db.backref('sss_credits', lazy="dynamic"))
 
 
 class SssWages(db.Model):
@@ -148,7 +154,8 @@ class SssWages(db.Model):
     year = db.Column(db.Integer)
 
     familytype = db.relationship(u'FamilyType')
-    county = db.relationship(u'County')
+    county = db.relationship(u'County',
+        backref=db.backref('sss_wages', lazy="dynamic"))
 
 
 class WageStats(db.Model):
@@ -170,4 +177,5 @@ class WageStats(db.Model):
     countywageh2rank = db.Column(db.Float)
     year = db.Column(db.Integer)
 
-    county = db.relationship(u'County')
+    county = db.relationship(u'County',
+        backref=db.backref('wage_stats', lazy="dynamic"))
