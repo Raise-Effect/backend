@@ -79,7 +79,7 @@ class Population(db.Model):
     year = db.Column(db.Integer)
 
     county = db.relationship(u'County')
-    familytype = db.relationship(u'Familytype')
+    familytype = db.relationship(u'FamilyType')
 
 
 class Puma(db.Model):
@@ -113,7 +113,7 @@ class SssBudget(db.Model):
     fips = db.Column(db.ForeignKey(u'counties.fips'))
     year = db.Column(db.Integer)
 
-    familytype = db.relationship(u'Familytype')
+    familytype = db.relationship(u'FamilyType')
     county = db.relationship(u'County')
 
 
@@ -130,7 +130,7 @@ class SssCredits(db.Model):
     fips = db.Column(db.ForeignKey(u'counties.fips'))
     year = db.Column(db.Integer)
 
-    familytype = db.relationship(u'Familytype')
+    familytype = db.relationship(u'FamilyType')
     county = db.relationship(u'County')
 
 
@@ -147,7 +147,7 @@ class SssWages(db.Model):
     fips = db.Column(db.ForeignKey(u'counties.fips'))
     year = db.Column(db.Integer)
 
-    familytype = db.relationship(u'Familytype')
+    familytype = db.relationship(u'FamilyType')
     county = db.relationship(u'County')
 
 
