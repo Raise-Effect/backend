@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify
 from flask import current_app as app, request
-import models
+from . import models
 
 api = Blueprint('api', __name__, url_prefix='/api/v1/')
 
@@ -29,5 +29,5 @@ def labor_stats():
         "urSeasonalAdj": stat.urseasonaladj,
         "year": stat.year
     }
-      for stat in LaborStats.query]
+      for stat in models.LaborStats.query]
     return jsonify(data)
