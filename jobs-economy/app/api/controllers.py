@@ -19,7 +19,6 @@ def counties(fips):
 
 @api.route('counties/labor-stats')
 def labor_stats():
-    stats = LaborStats.query()
     data = [
       {
         "fips": stat.fips,
@@ -30,5 +29,5 @@ def labor_stats():
         "urSeasonalAdj": stat.urseasonaladj,
         "year": stat.year
     }
-      for stat in stats]
+      for stat in LaborStats.query]
     return jsonify(data)
