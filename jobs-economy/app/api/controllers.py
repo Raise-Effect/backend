@@ -5,7 +5,8 @@ api = Blueprint('api', __name__, url_prefix='/api/v1/')
 
 @api.route('/', methods=['GET'])
 def index():
-    return 'Hello world'
+    return """Hello. Sourcecode and docs for this API available
+            <a href=https://github.com/Jobs-Economy/backend>here</a>"""
 
 @api.route('county', methods=['GET'])
 def county_data():
