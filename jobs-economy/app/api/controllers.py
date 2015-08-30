@@ -15,3 +15,19 @@ def counties(fips):
         'href': request.path,
         'name': models.County.query.filter_by(fips = fips).first().county
         })
+
+@api.route('counties/labor-stats')
+def labor_stats():
+    stats = LaborStats.query()
+    data = [
+      {
+        "fips": stat.fips,
+        "laborForce": stat.laborforce,
+        "employed": stat.employed,
+        "unemployed": stat.unemployed,
+        "unemploymentRate": stat.unemploymentrate,
+        "urSeasonalAdj": stat.urseasonaladj,
+        "year": stat.year
+    }
+      for stat in stats]
+    return jsonify(data)
