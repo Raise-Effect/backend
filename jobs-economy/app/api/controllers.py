@@ -13,5 +13,6 @@ def index():
 def counties(fips):
     return jsonify({
         'href': request.path,
-        'name': models.County.query.filter_by(fips = fips).first().county
+        'name': models.County.query.filter_by(fips = fips).first().county,
+        'fips': fips
         })
