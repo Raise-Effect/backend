@@ -15,7 +15,7 @@ class CalculatedStats(db.Model):
     c0allper = db.Column(db.Float)
 
     county = db.relationship(u'County',
-        backref=db.backref('calculated_stats', lazy="dynamic")
+        backref=db.backref('calculated_stats', lazy="dynamic"))
 
 
 class County(db.Model):
