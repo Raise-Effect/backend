@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify
-from flask import current_app as app
+from flask import current_app as app, request
 import models
 
 api = Blueprint('api', __name__, url_prefix='/api/v1/')
@@ -11,4 +11,7 @@ def index():
 
 @api.route('counties/<int:fips>', methods=['GET'])
 def counties(fips):
-    return models.County.query.filter_by(fips = fips).first().county
+    return jsonify({
+        'href': request.path,
+        'name': models.County.query.filter_by(fips = fips).first().county
+        })
