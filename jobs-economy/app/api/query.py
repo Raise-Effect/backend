@@ -1,5 +1,5 @@
 from functools import lru_cache
-from . import models
+from . import models, controllers
 
 
 def lru_jsonify_cache(**kwargs):
@@ -14,3 +14,32 @@ def lru_jsonify_cache(**kwargs):
 @lru_jsonify_cache()
 def construct_county(fips, expand_fields):
     county = models.County.query.filter_by(fips=fips).first()
+
+def construct_labor_stats_all():
+    data = [
+      {
+        "fips": stat.fips,
+        "laborForce": stat.laborforce,
+        "employed": stat.employed,
+        "unemployed": stat.unemployed,
+        "unemploymentRate": stat.unemploymentrate,
+        "urSeasonalAdj": stat.urseasonaladj,
+        "year": stat.year
+    }
+      for stat in models.LaborStats.query]
+    return jsonify(data)
+
+def construct_labor_stats_for_county(fips):
+    stat = models.LaborStats.query.filter_by(fips=fips).first()
+    if stat is not None:
+        return jsonify({
+          "fips": stat.fips,
+          "laborForce": stat.laborforce,
+          "employed": stat.employed,
+          "unemployed": stat.unemployed,
+          "unemploymentRate": stat.unemploymentrate,
+          "urSeasonalAdj": stat.urseasonaladj,
+          "year": stat.year
+        })
+    else:
+        return controllers.not_found()
