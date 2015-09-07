@@ -13,7 +13,7 @@ def lru_jsonify_cache(**kwargs):
 
 @lru_jsonify_cache()
 def construct_county(fips, expand_fields):
-    county = models.County.query.filter_by(fips=fips).first()
+    county = models.County.query.get(fips)
 
 def construct_labor_stats_all():
     data = [
@@ -30,7 +30,7 @@ def construct_labor_stats_all():
     return jsonify(data)
 
 def construct_labor_stats_for_county(fips):
-    stat = models.LaborStats.query.filter_by(fips=fips).first()
+    stat = models.LaborStats.query.get(fips)
     if stat is not None:
         return jsonify({
           "fips": stat.fips,
