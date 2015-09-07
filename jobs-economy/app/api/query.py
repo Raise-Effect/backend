@@ -32,7 +32,7 @@ def construct_labor_stats_all():
 def construct_labor_stats_for_county(fips):
     stat = models.LaborStats.query.get(fips)
     if stat is not None:
-        return jsonify({
+        data = {
           "fips": stat.fips,
           "laborForce": stat.laborforce,
           "employed": stat.employed,
@@ -40,6 +40,7 @@ def construct_labor_stats_for_county(fips):
           "unemploymentRate": stat.unemploymentrate,
           "urSeasonalAdj": stat.urseasonaladj,
           "year": stat.year
-        })
+        }
+        return jsonify(data=data)
     else:
         return controllers.not_found()
