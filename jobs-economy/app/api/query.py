@@ -27,7 +27,7 @@ def construct_labor_stats_all():
         "year": stat.year
     }
       for stat in models.LaborStats.query]
-    return jsonify(data)
+    return jsonify(data=data)
 
 def construct_labor_stats_for_county(fips):
     stat = models.LaborStats.query.get(fips)
