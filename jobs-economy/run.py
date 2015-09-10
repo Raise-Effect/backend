@@ -1,3 +1,8 @@
 # Run a test server.
+# Requires software from setup/dev-requirements
+from flask import Flask
+from flask.ext.runner import runner
 from app import app
-app.run(host='0.0.0.0', port=8080, debug=True)
+
+runner = Runner(app)
+runner.run()
