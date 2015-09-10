@@ -29,7 +29,7 @@ def labor_stats_for_county(fips):
 def not_found(error):
     message = {
         'status': 404,
-        'message': 'Not found: ' + request.url
+        'errorMessage': 'Not found: ' + request.url
     }
-    resp = jsonify(message)
+    resp = jsonify(data=message)
     return make_response(resp, 404)
