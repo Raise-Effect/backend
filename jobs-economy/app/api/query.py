@@ -1,5 +1,9 @@
 from functools import lru_cache, wraps
 from . import models
+from flask import jsonify
+
+
+LRU_CACHES = []
 
 
 def jsonify_lru_cache(**kwargs):
@@ -11,16 +15,25 @@ def jsonify_lru_cache(**kwargs):
         "data": <return value>
     }
 
-    See also:
+    The cache object is available at function_object.__wrapped__. See also:
+
     https://docs.python.org/3/library/functools.html#functools.lru_cache
     """
+
     def decorate(f):
         cache_wrapper = lru_cache(**kwargs)(f)
+        LRU_CACHES.append(cache_wrapper)
+
         @wraps(cache_wrapper)
         def jsonify_wrapper(*params, **kwargs):
             return jsonify(data=cache_wrapper(*params, **kwargs))
         return jsonify_wrapper
     return decorate
+
+
+def clear_caches():
+    for cache in LRU_CACHES:
+        cache.clear_cache()
 
 
 @jsonify_lru_cache()
