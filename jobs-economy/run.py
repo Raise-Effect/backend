@@ -1,7 +1,6 @@
 # Run a test server.
-# Requires software from setup/dev-requirements
-from flask import Flask
-from flask.ext.runner import runner
+# Requires libraries from setup/dev-requirements.txt
+from flask.ext.runner import Runner
 from app import app
 
 runner = Runner(app)
