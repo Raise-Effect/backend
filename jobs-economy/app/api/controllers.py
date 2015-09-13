@@ -61,7 +61,7 @@ def wagestats_for_county(fips, year):
 
 
 @api.route('counties/calculatedstats', methods=['GET'])
-def calcalatedstats_all():
+def calculatedstats_all():
     return query.construct_calculatedstats_all()
 
 
@@ -87,7 +87,7 @@ def ssscredits_all():
 
 @api.route('counties/<int:fips>/ssscredits', methods=['GET'])
 def ssscredits_for_county():
-    return query.construct_ssscredits_for_county()
+    return query.construct_ssscredits_for_county(fips)
 
 
 @api.route('counties/ssswages', methods=['GET'])
@@ -97,7 +97,7 @@ def ssswages_all():
 
 @api.route('counties/<int:fips>/ssswages', methods=['GET'])
 def ssswages_for_county():
-    return query.construct_ssswages_for_county()
+    return query.construct_ssswages_for_county(fips)
 
 
 @api.route('counties/puma', methods=['GET'])
@@ -107,7 +107,7 @@ def puma_all():
 
 @api.route('counties/<int:fips>/puma', methods=['GET'])
 def puma_for_county():
-    return query.construct_puma_for_county()
+    return query.construct_puma_for_county(fips)
 
 
 @api.errorhandler(404)
