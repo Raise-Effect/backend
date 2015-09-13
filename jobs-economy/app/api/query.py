@@ -265,3 +265,30 @@ def construct_ssswages_for_county(fips):
         "fips": stat.fips,
         "year": stat.year
     }
+
+def construct_puma_all():
+    data = [
+        {
+            "pumafipsid": stat.pumafipsid,
+            "fips": stat.fips,
+            "pumacode": stat.pumacode,
+            "areaname": stat.areaname,
+            "pumaname": stat.pumaname,
+            "pumapopulation": stat.pumapopulation,
+            "pumaweight": stat.pumaweight
+        }
+    for stat in models.Puma.query]
+    return jsonify(data=data)
+
+def construct_puma_for_county(fips):
+    stat = models.Puma.query.get_or_404(fips)
+    data = {
+        "pumafipsid": stat.pumafipsid,
+        "fips": stat.fips,
+        "pumacode": stat.pumacode,
+        "areaname": stat.areaname,
+        "pumaname": stat.pumaname,
+        "pumapopulation": stat.pumapopulation,
+        "pumaweight": stat.pumaweight
+    }
+    return jsonify(data)
