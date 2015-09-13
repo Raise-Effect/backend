@@ -1,23 +1,51 @@
-from functools import lru_cache
-from . import models, controllers
+from functools import lru_cache, wraps
+from . import models
 
 
-def lru_jsonify_cache(**kwargs):
-    # TODO: Implemementation broken
-    raise NotImplemented
-    @lru_cache(**kwargs)
-    def f(*params, **kwargs):
-        return jsonify()
-    return lru_cache(**kwargs)(f)
+def jsonify_lru_cache(**kwargs):
+    """
+    Cache database query results using functools.lru_cache and convert the
+    function return value to response with the json:
+
+    {
+        "data": <return value>
+    }
+
+    See also:
+    https://docs.python.org/3/library/functools.html#functools.lru_cache
+    """
+    def decorate(f):
+        cache_wrapper = lru_cache(**kwargs)(f)
+        @wraps(cache_wrapper)
+        def jsonify_wrapper(*params, **kwargs):
+            return jsonify(data=cache_wrapper(*params, **kwargs))
+        return jsonify_wrapper
+    return decorate
 
 
-@lru_jsonify_cache()
+@jsonify_lru_cache()
 def construct_county(fips, expand_fields):
     county = models.County.query.get(fips)
 
+
+@jsonify_lru_cache()
 def construct_laborstats_all():
-    data = [
-      {
+    data = [{
+        "fips": stat.fips,
+        "laborForce": stat.laborforce,
+        "employed": stat.employed,
+        "unemployed": stat.unemployed,
+        "unemploymentRate": stat.unemploymentrate,
+        "urSeasonalAdj": stat.urseasonaladj,
+        "year": stat.year
+    } for stat in models.LaborStats.query]
+    return data
+
+
+@jsonify_lru_cache
+def construct_laborstats_for_county(fips):
+    stat = models.LaborStats.query.get_or_404(fips)
+    return {
         "fips": stat.fips,
         "laborForce": stat.laborforce,
         "employed": stat.employed,
@@ -26,24 +54,11 @@ def construct_laborstats_all():
         "urSeasonalAdj": stat.urseasonaladj,
         "year": stat.year
     }
-      for stat in models.LaborStats.query]
-    return jsonify(data=data)
 
-def construct_laborstats_for_county(fips):
-    stat = models.LaborStats.query.get_or_404(fips)
-        data = {
-              "fips": stat.fips,
-              "laborForce": stat.laborforce,
-              "employed": stat.employed,
-              "unemployed": stat.unemployed,
-              "unemploymentRate": stat.unemploymentrate,
-              "urSeasonalAdj": stat.urseasonaladj,
-              "year": stat.year
-        }
-        return jsonify(data)
 
+@jsonify_lru_cache
 def construct_population_all():
-    data = [
+    return [
         {
               "fips": stat.fips,
               "population": stat.population,
@@ -59,11 +74,12 @@ def construct_population_all():
               "year": stat.year
         }
     for stat in models.Population.query]
-    return jsonify(data=data)
 
+
+@jsonify_lru_cache
 def construct_population_for_county(fips):
     stat = models.Population.query.get_or_404(fips)
-    data = {
+    return {
           "fips": stat.fips,
           "population": stat.population,
           "adults": stat.adults,
@@ -77,10 +93,11 @@ def construct_population_for_county(fips):
           "mostcommonfamilytype": stat.mostcommonfamilytype,
           "year": stat.year
     }
-    return jsonify(data)
 
+
+@jsonify_lru_cache
 def construct_familytype_all():
-    data = [
+    return [
         {
             "familycode": stat.familycode,
             "description-fc": stat.descriptionfc,
@@ -94,11 +111,12 @@ def construct_familytype_all():
             "children": stat.children
         }
     for stat in models.FamilyType.query]
-    return jsonify(data=data)
 
+
+@jsonify_lru_cache
 def construct_familytype_for_county(fips):
     stat = models.FamilyType.query.get_or_404(fips)
-    data = {
+    return {
         "familycode": stat.familycode,
         "description-fc": stat.descriptionfc,
         "familycode-rollup": stat.familycoderollup,
@@ -110,10 +128,11 @@ def construct_familytype_for_county(fips):
         "teenagers": stat.teenagers,
         "children": stat.children
     }
-    return jsonify(data)
 
+
+@jsonify_lru_cache
 def construct_wagestats_all():
-    data = [
+    return [
         {
             "fips": stat.fips,
             "medianwage": stat.medianwage,
@@ -130,11 +149,12 @@ def construct_wagestats_all():
             "year": stat.year
         }
     for stat in models.WageStats.query]
-    return jsonify(data=data)
 
+
+@jsonify_lru_cache
 def construct_wagestats_for_county(fips):
     stat = models.WageStats.query.get_or_404(fips)
-    data = {
+    return {
         "fips": stat.fips,
         "medianwage": stat.medianwage,
         "medianhourly": stat.medianhourly,
@@ -149,10 +169,11 @@ def construct_wagestats_for_county(fips):
         "countywageh2rank": stat.countywageh2rank,
         "year": stat.year
     }
-    return jsonify(data)
 
+
+@jsonify_lru_cache
 def construct_calculatedstats_all():
-    data = [
+    return [
         {
             "fips": stat.fips,
             "percentorkids": stat.percentorkids,
@@ -161,21 +182,23 @@ def construct_calculatedstats_all():
             "c0allper": stat.c0allper
         }
     for stat in models.CalculatedStats.query]
-    return jsonify(data=data)
 
+
+@jsonify_lru_cache
 def construct_calculatedstats_for_county(fips):
     stat = models.CalculatedStats.query.get_or_404(fips)
-    data = {
+    return {
         "fips": stat.fips,
         "percentorkids": stat.percentorkids,
         "a1allper": stat.a1allper,
         "a2allper": stat.a2allper,
         "c0allper": stat.c0allper
     }
-    return jsonify(data)
 
+
+@jsonify_lru_cache
 def construct_sssbudget_all():
-    data = [
+    return [
         {
             "sssbudgetid": stat.sssbudgetid,
             "familycode": stat.familycode,
@@ -190,11 +213,12 @@ def construct_sssbudget_all():
             "year": stat.year
         }
     for stat in models.SssBudget.query]
-    return jsonify(data=data)
 
+
+@jsonify_lru_cache
 def construct_sssbudget_for_county(fips):
     stat = models.SssBudget.query.get_or_404(fips)
-    data = {
+    return {
         "sssbudgetid": stat.sssbudgetid,
         "familycode": stat.familycode,
         "housing": stat.housing,
@@ -207,10 +231,11 @@ def construct_sssbudget_for_county(fips):
         "fips": stat.fips,
         "year": stat.year
     }
-    return jsonify(data)
 
+
+@jsonify_lru_cache
 def construct_ssscredits_all():
-    data = [
+    return [
         {
             "ssscreditsid": stat.ssscreditsid,
             "familycode": stat.familycode,
@@ -222,11 +247,12 @@ def construct_ssscredits_all():
             "year": stat.year
         }
     for stat in models.SssCredits.query]
-    return jsonify(data=data)
 
+
+@jsonify_lru_cache
 def construct_ssscredits_for_county(fips):
     stat = models.SssCredits.query.get_or_404(fips)
-    data = {
+    return {
         "ssscreditsid": stat.ssscreditsid,
         "familycode": stat.familycode,
         "oregonworkingfamilycredit": stat.oregonworkingfamilycredit,
@@ -236,10 +262,11 @@ def construct_ssscredits_for_county(fips):
         "fips": stat.fips,
         "year": stat.year
     }
-    return jsonify(data)
 
+
+@jsonify_lru_cache
 def construct_ssswages_all():
-    data = [
+    return [
         {
             "ssswagesid": stat.ssswagesid,
             "familycode": stat.familycode,
@@ -251,11 +278,12 @@ def construct_ssswages_all():
             "year": stat.year
         }
     for stat in models.SssWages.query]
-    return jsonify(data=data)
 
+
+@jsonify_lru_cache
 def construct_ssswages_for_county(fips):
     stat = models.SssWages.query.get_or_404(fips)
-    data = {
+    return {
         "ssswagesid": stat.ssswagesid,
         "familycode": stat.familycode,
         "hourly": stat.hourly,
@@ -266,8 +294,10 @@ def construct_ssswages_for_county(fips):
         "year": stat.year
     }
 
+
+@jsonify_lru_cache
 def construct_puma_all():
-    data = [
+    return [
         {
             "pumafipsid": stat.pumafipsid,
             "fips": stat.fips,
@@ -277,12 +307,13 @@ def construct_puma_all():
             "pumapopulation": stat.pumapopulation,
             "pumaweight": stat.pumaweight
         }
-    for stat in models.Puma.query]
-    return jsonify(data=data)
+        for stat in models.Puma.query]
 
+
+@jsonify_lru_cache
 def construct_puma_for_county(fips):
     stat = models.Puma.query.get_or_404(fips)
-    data = {
+    return {
         "pumafipsid": stat.pumafipsid,
         "fips": stat.fips,
         "pumacode": stat.pumacode,
@@ -291,4 +322,3 @@ def construct_puma_for_county(fips):
         "pumapopulation": stat.pumapopulation,
         "pumaweight": stat.pumaweight
     }
-    return jsonify(data)
