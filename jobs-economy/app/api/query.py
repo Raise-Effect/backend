@@ -237,3 +237,31 @@ def construct_ssscredits_for_county(fips):
         "year": stat.year
     }
     return jsonify(data)
+
+def construct_ssswages_all():
+    data = [
+        {
+            "ssswagesid": stat.ssswagesid,
+            "familycode": stat.familycode,
+            "hourly": stat.hourly,
+            "qualifier": stat.qualifier,
+            "monthly": stat.monthly,
+            "annual": stat.annual,
+            "fips": stat.fips,
+            "year": stat.year
+        }
+    for stat in models.SssWages.query]
+    return jsonify(data=data)
+
+def construct_ssswages_for_county(fips):
+    stat = models.SssWages.query.get_or_404(fips)
+    data = {
+        "ssswagesid": stat.ssswagesid,
+        "familycode": stat.familycode,
+        "hourly": stat.hourly,
+        "qualifier": stat.qualifier,
+        "monthly": stat.monthly,
+        "annual": stat.annual,
+        "fips": stat.fips,
+        "year": stat.year
+    }
