@@ -30,5 +30,5 @@ def not_found(error):
         'status': 404,
         'errorMessage': 'Not found: ' + request.url
     }
-    resp = jsonify(data=message)
+    resp = jsonify(message)
     return make_response(resp, 404)
