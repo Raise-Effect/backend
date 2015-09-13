@@ -150,3 +150,26 @@ def construct_wagestats_for_county(fips):
         "year": stat.year
     }
     return jsonify(data)
+
+def construct_calculatedstats_all():
+    data = [
+        {
+            "fips": stat.fips,
+            "percentorkids": stat.percentorkids,
+            "a1allper": stat.a1allper,
+            "a2allper": stat.a2allper,
+            "c0allper": stat.c0allper
+        }
+    for stat in models.CalculatedStats.query]
+    return jsonify(data=data)
+
+def construct_calculatedstats_for_county(fips):
+    stat = models.CalculatedStats.query.get_or_404(fips)
+    data = {
+        "fips": stat.fips,
+        "percentorkids": stat.percentorkids,
+        "a1allper": stat.a1allper,
+        "a2allper": stat.a2allper,
+        "c0allper": stat.c0allper
+    }
+    return jsonify(data)
