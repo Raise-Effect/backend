@@ -15,7 +15,7 @@ def lru_jsonify_cache(**kwargs):
 def construct_county(fips, expand_fields):
     county = models.County.query.get(fips)
 
-def construct_labor_stats_all():
+def construct_laborstats_all():
     data = [
       {
         "fips": stat.fips,
@@ -29,7 +29,7 @@ def construct_labor_stats_all():
       for stat in models.LaborStats.query]
     return jsonify(data=data)
 
-def construct_labor_stats_for_county(fips):
+def construct_laborstats_for_county(fips):
     stat = models.LaborStats.query.get_or_404(fips)
         data = {
               "fips": stat.fips,
@@ -40,7 +40,7 @@ def construct_labor_stats_for_county(fips):
               "urSeasonalAdj": stat.urseasonaladj,
               "year": stat.year
         }
-        return jsonify(data=data)
+        return jsonify(data)
 
 def construct_population_all():
     data = [
@@ -77,7 +77,7 @@ def construct_population_for_county(fips):
           "mostcommonfamilytype": stat.mostcommonfamilytype,
           "year": stat.year
     }
-    return jsonify(data=data)
+    return jsonify(data)
 
 def construct_familytype_all():
     data = [
@@ -110,7 +110,7 @@ def construct_familytype_for_county(fips):
         "teenagers": stat.teenagers,
         "children": stat.children
     }
-    return jsonify(data=data)
+    return jsonify(data)
 
 def construct_wagestats_all():
     data = [
@@ -149,4 +149,4 @@ def construct_wagestats_for_county(fips):
         "countywageh2rank": stat.countywageh2rank,
         "year": stat.year
     }
-    return jsonify(data=data)
+    return jsonify(data)
