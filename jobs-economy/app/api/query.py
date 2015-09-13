@@ -173,3 +173,38 @@ def construct_calculatedstats_for_county(fips):
         "c0allper": stat.c0allper
     }
     return jsonify(data)
+
+def construct_sssbudget_all():
+    data = [
+        {
+            "sssbudgetid": stat.sssbudgetid,
+            "familycode": stat.familycode,
+            "fips": stat.fips,
+            "housing": stat.housing,
+            "childcare": stat.childcare,
+            "food": stat.food,
+            "transportation": stat.transportation,
+            "healthcare": stat.healthcare,
+            "miscellaneous": stat.miscellaneous,
+            "taxes": stat.taxes,
+            "year": stat.year
+        }
+    for stat in models.SssBudget.query]
+    return jsonify(data=data)
+
+def construct_sssbudget_for_county(fips):
+    stat = models.SssBudget.query.get_or_404(fips)
+    data = {
+        "sssbudgetid": stat.sssbudgetid,
+        "familycode": stat.familycode,
+        "fips": stat.fips,
+        "housing": stat.housing,
+        "childcare": stat.childcare,
+        "food": stat.food,
+        "transportation": stat.transportation,
+        "healthcare": stat.healthcare,
+        "miscellaneous": stat.miscellaneous,
+        "taxes": stat.taxes,
+        "year": stat.year
+    }
+    return jsonify(data)
