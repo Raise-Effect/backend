@@ -197,7 +197,6 @@ def construct_sssbudget_for_county(fips):
     data = {
         "sssbudgetid": stat.sssbudgetid,
         "familycode": stat.familycode,
-        "fips": stat.fips,
         "housing": stat.housing,
         "childcare": stat.childcare,
         "food": stat.food,
@@ -205,6 +204,36 @@ def construct_sssbudget_for_county(fips):
         "healthcare": stat.healthcare,
         "miscellaneous": stat.miscellaneous,
         "taxes": stat.taxes,
+        "fips": stat.fips,
+        "year": stat.year
+    }
+    return jsonify(data)
+
+def construct_ssscredits_all():
+    data = [
+        {
+            "ssscreditsid": stat.ssscreditsid,
+            "familycode": stat.familycode,
+            "oregonworkingfamilycredit": stat.oregonworkingfamilycredit,
+            "earnedincometax": stat.earnedincometax,
+            "childcaretax": stat.childcaretax,
+            "childtax": stat.childtax,
+            "fips": stat.fips,
+            "year": stat.year
+        }
+    for stat in models.SssCredits.query]
+    return jsonify(data=data)
+
+def construct_ssscredits_for_county(fips):
+    stat = models.SssCredits.query.get_or_404(fips)
+    data = {
+        "ssscreditsid": stat.ssscreditsid,
+        "familycode": stat.familycode,
+        "oregonworkingfamilycredit": stat.oregonworkingfamilycredit,
+        "earnedincometax": stat.earnedincometax,
+        "childcaretax": stat.childcaretax,
+        "childtax": stat.childtax,
+        "fips": stat.fips,
         "year": stat.year
     }
     return jsonify(data)
