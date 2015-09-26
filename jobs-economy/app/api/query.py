@@ -64,7 +64,7 @@ def construct_laborstats_all():
     return data
 
 
-@jsonify_lru_cache
+@jsonify_lru_cache()
 def construct_laborstats_for_county(fips):
     stat = models.LaborStats.query.filter_by(fips=fips).first_or_404()
     return {
@@ -78,7 +78,7 @@ def construct_laborstats_for_county(fips):
     }
 
 
-@jsonify_lru_cache
+@jsonify_lru_cache()
 def construct_population_all():
     return [
         {
@@ -97,7 +97,7 @@ def construct_population_all():
         } for stat in models.Population.query]
 
 
-@jsonify_lru_cache
+@jsonify_lru_cache()
 def construct_population_for_county(fips):
     stat = models.Population.query.filter_by(fips=fips).first_or_404()
     return {
@@ -116,7 +116,7 @@ def construct_population_for_county(fips):
     }
 
 
-@jsonify_lru_cache
+@jsonify_lru_cache()
 def construct_familytype_all():
     return [
         {
@@ -133,7 +133,7 @@ def construct_familytype_all():
         } for stat in models.FamilyType.query]
 
 
-@jsonify_lru_cache
+@jsonify_lru_cache()
 def construct_familytype_for_county(fips):
     stat = models.FamilyType.query.filter_by(fips=fips).first_or_404()
     return {
@@ -150,7 +150,7 @@ def construct_familytype_for_county(fips):
     }
 
 
-@jsonify_lru_cache
+@jsonify_lru_cache()
 def construct_wagestats_all():
     return [
         {
@@ -170,7 +170,7 @@ def construct_wagestats_all():
         } for stat in models.WageStats.query]
 
 
-@jsonify_lru_cache
+@jsonify_lru_cache()
 def construct_wagestats_for_county(fips, year=2013):
     stat = models.WageStats.query.filter_by(fips=fips).first_or_404()
     return {
@@ -190,7 +190,7 @@ def construct_wagestats_for_county(fips, year=2013):
     }
 
 
-@jsonify_lru_cache
+@jsonify_lru_cache()
 def construct_calculatedstats_all():
     return [
         {
@@ -202,7 +202,7 @@ def construct_calculatedstats_all():
         } for stat in models.CalculatedStats.query]
 
 
-@jsonify_lru_cache
+@jsonify_lru_cache()
 def construct_calculatedstats_for_county(fips):
     stat = models.CalculatedStats.query.filter_by(fips=fips).first_or_404()
     return {
@@ -214,7 +214,7 @@ def construct_calculatedstats_for_county(fips):
     }
 
 
-@jsonify_lru_cache
+@jsonify_lru_cache()
 def construct_sssbudget_all():
     return [
         {
@@ -232,7 +232,7 @@ def construct_sssbudget_all():
         } for stat in models.SssBudget.query]
 
 
-@jsonify_lru_cache
+@jsonify_lru_cache()
 def construct_sssbudget_for_county(fips):
     stat = models.SssBudget.query.filter_by(fips=fips).first_or_404()
     return {
@@ -250,7 +250,7 @@ def construct_sssbudget_for_county(fips):
     }
 
 
-@jsonify_lru_cache
+@jsonify_lru_cache()
 def construct_ssscredits_all():
     return [
         {
@@ -265,7 +265,7 @@ def construct_ssscredits_all():
         } for stat in models.SssCredits.query]
 
 
-@jsonify_lru_cache
+@jsonify_lru_cache()
 def construct_ssscredits_for_county(fips):
     stat = models.SssCredits.query.filter_by(fips=fips).first_or_404()
     return {
@@ -280,7 +280,7 @@ def construct_ssscredits_for_county(fips):
     }
 
 
-@jsonify_lru_cache
+@jsonify_lru_cache()
 def construct_ssswages_all():
     return [
         {
@@ -295,7 +295,7 @@ def construct_ssswages_all():
         } for stat in models.SssWages.query]
 
 
-@jsonify_lru_cache
+@jsonify_lru_cache()
 def construct_ssswages_for_county(fips):
     stat = models.SssWages.query.filter_by(fips=fips).first_or_404()
     return {
@@ -310,7 +310,7 @@ def construct_ssswages_for_county(fips):
     }
 
 
-@jsonify_lru_cache
+@jsonify_lru_cache()
 def construct_puma_all():
     return [
         {
@@ -325,7 +325,7 @@ def construct_puma_all():
         for stat in models.Puma.query]
 
 
-@jsonify_lru_cache
+@jsonify_lru_cache()
 def construct_puma_for_county(fips):
     stat = models.Puma.query.filter_by(fips=fips).first_or_404()
     return {
