@@ -17,11 +17,7 @@ def counties_all():
 
 @api.route('counties/<int:fips>', methods=['GET'])
 def county(fips):
-    return jsonify({
-        'href': request.path,
-        'name': models.County.query.get(fips).county,
-        'fips': fips
-        })
+    return query.construct_county(fips)
 
 
 @api.route('counties/laborstats', methods=['GET'])
@@ -29,7 +25,7 @@ def laborstats_all():
     return query.construct_laborstats_all()
 
 
-@api.route('county/<int:fips>/laborstats', methods=['GET'])
+@api.route('counties/<int:fips>/laborstats', methods=['GET'])
 def laborstats_for_county(fips):
     return query.construct_laborstats_for_county(fips)
 
@@ -91,7 +87,7 @@ def ssscredits_all():
 
 
 @api.route('counties/<int:fips>/ssscredits', methods=['GET'])
-def ssscredits_for_county():
+def ssscredits_for_county(fips):
     return query.construct_ssscredits_for_county(fips)
 
 
@@ -101,7 +97,7 @@ def ssswages_all():
 
 
 @api.route('counties/<int:fips>/ssswages', methods=['GET'])
-def ssswages_for_county():
+def ssswages_for_county(fips):
     return query.construct_ssswages_for_county(fips)
 
 
@@ -111,7 +107,7 @@ def puma_all():
 
 
 @api.route('counties/<int:fips>/puma', methods=['GET'])
-def puma_for_county():
+def puma_for_county(fips):
     return query.construct_puma_for_county(fips)
 
 
