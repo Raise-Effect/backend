@@ -10,8 +10,13 @@ def index():
     return render_template('index.html')
 
 
+@api.route('counties/', methods=['GET'])
+def counties_all():
+    return query.construct_counties()
+
+
 @api.route('counties/<int:fips>', methods=['GET'])
-def counties(fips):
+def county(fips):
     return jsonify({
         'href': request.path,
         'name': models.County.query.get(fips).county,

@@ -51,6 +51,15 @@ def construct_county(fips):
 
 
 @jsonify_lru_cache()
+def construct_counties():
+    data = [{
+        'fips': county.fips,
+        'name': county.county,
+    } for county in models.County.query]
+    return data
+
+
+@jsonify_lru_cache()
 def construct_laborstats_all():
     data = [{
         "fips": stat.fips,
