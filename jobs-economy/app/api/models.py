@@ -6,8 +6,7 @@ from sqlalchemy import text
 class CalculatedStats(db.Model):
     __tablename__ = 'calculatedstats'
 
-    calculatedstatsid = db.Column(db.Integer, primary_key=True,
-        server_default=text("nextval('calculatedstats_calculatedstatsid_seq'::regclass)"))
+    calculatedstatsid = db.Column(db.Integer, primary_key=True)
     fips = db.Column(db.ForeignKey(u'counties.fips'))
     percentorkids = db.Column(db.Float)
     a1allper = db.Column(db.Float)
@@ -43,8 +42,7 @@ class FamilyType(db.Model):
 class LaborStats(db.Model):
     __tablename__ = 'laborstats'
 
-    laborstatsid = db.Column(db.Integer, primary_key=True,
-        server_default=text("nextval('laborstats_laborstatsid_seq'::regclass)"))
+    laborstatsid = db.Column(db.Integer, primary_key=True)
     fips = db.Column(db.ForeignKey(u'counties.fips'))
     laborforce = db.Column(db.Float)
     employed = db.Column(db.Float)
@@ -60,8 +58,7 @@ class LaborStats(db.Model):
 class Population(db.Model):
     __tablename__ = 'population'
 
-    populationid = db.Column(db.Integer, primary_key=True,
-        server_default=text("nextval('population_populationid_seq'::regclass)"))
+    populationid = db.Column(db.Integer, primary_key=True)
     fips = db.Column(db.ForeignKey(u'counties.fips'))
     population = db.Column(db.Float)
     adults = db.Column(db.Float)
@@ -89,8 +86,7 @@ class Population(db.Model):
 class Puma(db.Model):
     __tablename__ = 'puma'
 
-    pumafipsid = db.Column(db.Integer, primary_key=True,
-        server_default=text("nextval('puma_pumafipsid_seq'::regclass)"))
+    pumafipsid = db.Column(db.Integer, primary_key=True)
     fips = db.Column(db.ForeignKey(u'counties.fips'))
     pumacode = db.Column(db.Integer)
     areaname = db.Column(db.Text)
@@ -105,8 +101,7 @@ class Puma(db.Model):
 class SssBudget(db.Model):
     __tablename__ = 'sssbudget'
 
-    sssbudgetid = db.Column(db.Integer, primary_key=True,
-        server_default=text("nextval('sssbudget_sssbudgetid_seq'::regclass)"))
+    sssbudgetid = db.Column(db.Integer, primary_key=True)
     familycode = db.Column(db.ForeignKey(u'familytype.familycode'))
     housing = db.Column(db.Float)
     childcare = db.Column(db.Float)
@@ -127,8 +122,7 @@ class SssBudget(db.Model):
 class SssCredits(db.Model):
     __tablename__ = 'ssscredits'
 
-    ssscreditsid = db.Column(db.Integer, primary_key=True,
-        server_default=text("nextval('ssscredits_ssscreditsid_seq'::regclass)"))
+    ssscreditsid = db.Column(db.Integer, primary_key=True)
     familycode = db.Column(db.ForeignKey(u'familytype.familycode'))
     oregonworkingfamilycredit = db.Column(db.Float)
     earnedincometax = db.Column(db.Float)
@@ -146,8 +140,7 @@ class SssCredits(db.Model):
 class SssWages(db.Model):
     __tablename__ = 'ssswages'
 
-    ssswagesid = db.Column(db.Integer, primary_key=True,
-        server_default=text("nextval('ssswages_ssswagesid_seq'::regclass)"))
+    ssswagesid = db.Column(db.Integer, primary_key=True)
     familycode = db.Column(db.ForeignKey(u'familytype.familycode'))
     hourly = db.Column(db.Float)
     qualifier = db.Column(db.Text)
@@ -165,8 +158,7 @@ class SssWages(db.Model):
 class WageStats(db.Model):
     __tablename__ = 'wagestats'
 
-    wagestatsid = db.Column(db.Integer, primary_key=True,
-        server_default=text("nextval('wagestats_wagestatsid_seq'::regclass)"))
+    wagestatsid = db.Column(db.Integer, primary_key=True)
     fips = db.Column(db.ForeignKey(u'counties.fips'))
     medianwage = db.Column(db.Float)
     medianhourly = db.Column(db.Float)
