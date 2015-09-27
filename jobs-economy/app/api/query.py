@@ -33,7 +33,7 @@ def jsonify_lru_cache(**kwargs):
 
 def clear_caches():
     for cache in LRU_CACHES:
-        cache.clear_cache()
+        cache.cache_clear()
 
 
 @jsonify_lru_cache()
