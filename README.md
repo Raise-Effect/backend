@@ -192,7 +192,7 @@ _Many of these field names will likely be refactored so that fields like "a1c1C"
 - **a2allper**:**float** - _percentage Couples_
 - **c0allper**:**float** - _percentage households with no children_
 
-### Self-Sufficiency Standard Budget
+#### Self-Sufficiency Standard Budget
 
 - **sssbudgetid**:**integer** - _serialized primary key_
 - **familycode**:**string** - _foreign key, references familytype(familycode)_
@@ -206,7 +206,7 @@ _Many of these field names will likely be refactored so that fields like "a1c1C"
 - **fips**:**integer** - _foreign key, references counties(fips)_
 - **year**:**integer** - _year represented by data_
 
-### Self-Sufficiency Standard Tax Credits
+#### Self-Sufficiency Standard Tax Credits
 
 - **ssscreditsid**:**integer** - _serialized primary key_
 - **familycode**:**string** - _foreign key, references familytype(familycode)_
@@ -217,7 +217,7 @@ _Many of these field names will likely be refactored so that fields like "a1c1C"
 - **fips**:**integer** - _foreign key, references counties(fips)_
 - **year**:**integer** -_year represented by data_
 
-### Self-Sufficiency Standard Wages
+#### Self-Sufficiency Standard Wages
 
 - **ssswageid**:**integer** - _serialized primary key_
 - **familycode**:**string** - _foreign key, references familytype(familycode)_
@@ -228,7 +228,7 @@ _Many of these field names will likely be refactored so that fields like "a1c1C"
 - **fips**:**integer** - _foreign key, references counties(fips)_
 - **year**:**integer** - _year represented by data_
 
-### PUMA codes
+#### PUMA codes
 
 - **pumafipsid**:**integer** - _serialized primary key_
 - **fips**:**integer** - _foreign key, references counties(fips)_
