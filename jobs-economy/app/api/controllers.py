@@ -43,12 +43,7 @@ def population_for_county(fips):
 @api.route('counties/familytype', methods=['GET'])
 def familytype_all():
     return query.construct_familytype_all()
-
-
-@api.route('counties/<int:fips>/familytype', methods=['GET'])
-def familytype_for_county(fips):
-    return query.construct_familytype_for_county(fips)
-
+    
 
 @api.route('counties/wagestats', methods=['GET'])
 def wagestats_all():
