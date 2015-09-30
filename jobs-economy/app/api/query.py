@@ -141,24 +141,6 @@ def construct_familytype_all():
             "children": stat.children
         } for stat in models.FamilyType.query]
 
-
-@jsonify_lru_cache()
-def construct_familytype_for_county(fips):
-    stat = models.FamilyType.query.filter_by(fips=fips).first_or_404()
-    return {
-        "familycode": stat.familycode,
-        "description-fc": stat.descriptionfc,
-        "familycode-rollup": stat.familycoderollup,
-        "description-fcr": stat.descriptionfcr,
-        "adults": stat.adults,
-        "infants": stat.infants,
-        "preschoolers": stat.preschoolers,
-        "schoolage": stat.schoolage,
-        "teenagers": stat.teenagers,
-        "children": stat.children
-    }
-
-
 @jsonify_lru_cache()
 def construct_wagestats_all():
     return [
