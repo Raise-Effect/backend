@@ -7,7 +7,8 @@ api = Blueprint('api', __name__, url_prefix='/api/v1/')
 
 @api.route('/', methods=['GET'])
 def index():
-    return render_template('index.html')
+    return """Hello. Sourcecode and docs for this API available
+    <a href=https://github.com/Jobs-Economy/backend>here</a>"""
 
 
 @api.route('counties/', methods=['GET'])
@@ -43,7 +44,7 @@ def population_for_county(fips):
 @api.route('counties/familytype', methods=['GET'])
 def familytype_all():
     return query.construct_familytype_all()
-    
+
 
 @api.route('counties/wagestats', methods=['GET'])
 def wagestats_all():
