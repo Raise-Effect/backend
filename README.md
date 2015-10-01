@@ -16,6 +16,20 @@ This is the backend REST API for Hack Oregon's Job's Economy team. It consists o
 
 Visit `0.0.0.0:5000` in your browser.
 
+##### To run on server without Vagrant and Docker: #####
+`sudo apt-get install python3-pip`
+
+`cd backend`
+
+`virtualenv -p python3 env`
+
+`source env/bin/activate`
+
+`pip install -r setup/requirements.txt`
+
+`pip install -r setup/server-requirements.txt`
+
+`sudo env/bin/gunicorn -b 0.0.0.0:80 jobs-economy/app:app`
 
 ##### To run with Vagrant and the Docker provisioner: #####
 You must have Vagrant installed, along with Virtualbox.
