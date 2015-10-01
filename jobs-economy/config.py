@@ -1,12 +1,23 @@
 # Statement for enabling the development environment
+
 DEBUG = True
 
 # Define the application directory
 import os
+import configparser
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
+config = configparser.ConfigParser()
+config.read('secrets.cfg')
+
+POSTGRESQL_USER = config['database']['user']
+POSTGRESQL_PASSWORD = config['database']['password']
+
 # Define the database, SQLite
-SQLALCHEMY_DATABASE_URI = 'postgresql://hoadmin:hopassword@hodor.cyebmqn3motm.us-west-2.rds.amazonaws.com:5432/test'
+SQLALCHEMY_DATABASE_URI = 'postgresql://{user}:{password}@raise-effect-db.c1srwyzwwu1a.us-west-2.rds.amazonaws.com/raise_effect'.format(
+    user=POSTGRESQL_USER,
+    password=POSTGRESQL_PASSWORD,
+)
 DATABASE_CONNECT_OPTIONS = {}
 
 # Application threads. A common general assumption is
