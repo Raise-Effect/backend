@@ -41,7 +41,6 @@ def construct_county(fips):
     return {
         'laborStats': construct_laborstats_for_county(fips),
         'population': construct_population_for_county(fips),
-        'familyType': construct_familytype_for_county(fips),
         'wageStats': construct_wagestats_for_county(fips),
         'calculatedStats': construct_calculatedstats_for_county(fips),
         'sssBudget': construct_sssbudget_for_county(fips),
