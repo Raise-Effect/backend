@@ -39,14 +39,13 @@ def clear_caches():
 @jsonify_lru_cache()
 def construct_county(fips):
     return {
-        'laborStats': construct_laborstats_for_county(fips),
-        'population': construct_population_for_county(fips),
-        'familyType': construct_familytype_for_county(fips),
-        'wageStats': construct_wagestats_for_county(fips),
-        'calculatedStats': construct_calculatedstats_for_county(fips),
-        'sssBudget': construct_sssbudget_for_county(fips),
-        'sssCredits': construct_ssscredits_for_county(fips),
-        'sssWages': construct_ssswages_for_county(fips),
+        'laborStats': construct_laborstats_for_county.__wrapped__(fips),
+        'population': construct_population_for_county.__wrapped__(fips),
+        'wageStats': construct_wagestats_for_county.__wrapped__(fips),
+        'calculatedStats': construct_calculatedstats_for_county.__wrapped__(fips),
+        'sssBudget': construct_sssbudget_for_county.__wrapped__(fips),
+        'sssCredits': construct_ssscredits_for_county.__wrapped__(fips),
+        'sssWages': construct_ssswages_for_county.__wrapped__(fips),
     }
 
 

@@ -11,11 +11,6 @@ db = SQLAlchemy(app)
 
 #from .api import models
 
-# Sample HTTP error handling
-@app.errorhandler(404)
-def not_found(error):
-    return render_template('404.html'), 404
-
 # Import a module / component using its blueprint handler variable
 from app.api.controllers import api as api_module
 
