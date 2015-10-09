@@ -8,6 +8,7 @@ sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 import app
 from app.api import models
 
+
 class ApiTestCase(unittest.TestCase):
     def setUp(self):
         app.app.config['TESTING'] = True
@@ -41,11 +42,68 @@ class PopulationTestCase(ApiTestCase):
 
     def test_county_fips(self):
         self.db.session.add(models.County(fips=1234, county="Abc"))
-        self.db.session.add(models.CalculatedStats(fips=1234,
+        self.db.session.add(models.CalculatedStats(
+            fips=1234,
             percentorkids=0.1,
             a1allper=0.2,
             a2allper=0.3,
             c0allper=0.4))
+        self.db.session.add(models.LaborStats(
+            fips=1234,
+            laborforce=0.1,
+            employed=0.2,
+            unemployed=0.3,
+            unemploymentrate=0.4,
+            urseasonaladj=0.5,
+            year=2012
+            ))
+        self.db.session.add(models.Population(
+            fips=1234,
+            population=0.1,
+            adults=0.2,
+            kids=0.3,
+            kidspresentc=0.4,
+            a1cc=0.5,
+            a2s2c=0.6,
+            a1c0c=0.7,
+            a1teenc=0.8,
+            kidspresentcper=0.9,
+            a1ccper=0.11,
+            a2s2cper=0.12,
+            a1c0cper=0.13,
+            a1teencper=0.14,
+            mindiff=0.15,
+            mostcommonfamilytype='a1i0p0s0t0',
+            year=2012
+            ))
+        self.db.session.add(models.WageStats(
+            fips=1234,
+            medianwage=0.1,
+            medianhourly=0.2,
+            lessthan10hour=0.3,
+            btwn10and15hour=0.4,
+            totalunder15=0.5,
+            totalpercentorjobs=0.6,
+            countysalary=0.7,
+            countywage=0.8,
+            countywageh2=0.9,
+            countywagerank=0.11,
+            countywageh2rank=0.12,
+            year=2012
+        ))
+        self.db.session.add(models.SssBudget(
+            familycode='a1i0p0s0t0',
+            housing=0.1,
+            childcare=0.2,
+            food=0.3,
+            transportation=0.4,
+            healthcare=0.5,
+            miscellaneous=0.6,
+            taxes=0.7,
+            fips=1234,
+            year=2012
+        ))
+        self.db.session.add(models.Sss)
 
         self.db.session.commit()
         self.assert_json_equal('/counties/1234', {
