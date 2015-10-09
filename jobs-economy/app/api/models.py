@@ -1,7 +1,7 @@
 # coding: utf-8
 
 from app import db
-from sqlalchemy import text
+
 
 class CalculatedStats(db.Model):
     __tablename__ = 'calculatedstats'
