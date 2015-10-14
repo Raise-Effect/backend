@@ -205,6 +205,25 @@ class PopulationTestCase(ApiTestCase):
             }
         })
 
+    def test_calculatedstats_all_counties(self):
+        self.db.session.add(models.County(fips=1234, county="Abc"))
+        self.db.session.add(models.CalculatedStats(
+            fips=1234,
+            percentorkids=0.1,
+            a1allper=0.2,
+            a2allper=0.3,
+            c0allper=0.4
+        ))
+        self.assert_json_equal('/counties/calculatedstats', {
+            'data': [{
+                'fips': 1234,
+                'percentorkids': 0.1,
+                'a1allper': 0.2,
+                'a2allper': 0.3,
+                'c0allper': 0.4,
+            }]
+        })
+
     def test_county_404(self):
         self.assert_json_equal('/counties/1', {
             'errorMessage': 'Not found: http://localhost/api/v1/counties/1',
