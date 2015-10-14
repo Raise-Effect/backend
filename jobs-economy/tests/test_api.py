@@ -206,7 +206,6 @@ class PopulationTestCase(ApiTestCase):
         })
 
     def test_calculatedstats_all_counties(self):
-#        self.db.session.add(models.County(fips=1234, county="Abc"))
         self.db.session.add(models.CalculatedStats(
             fips=1234,
             percentorkids=0.1,
@@ -225,7 +224,6 @@ class PopulationTestCase(ApiTestCase):
         })
 
     def test_population_all_counties(self):
-        self.db.session.add(models.County(fips=1234, county="Abc"))
         self.db.session.add(models.Population(
             fips=1234,
             population=0.1,
@@ -261,6 +259,137 @@ class PopulationTestCase(ApiTestCase):
                 'year': 2012
             }]
         })
+
+    def test_laborstats_all_counties(self):
+        self.db.session.add(models.LaborStats(
+            fips=1234,
+            laborforce=0.1,
+            employed=0.2,
+            unemployed=0.3,
+            unemploymentrate=0.4,
+            urseasonaladj=0.5,
+            year=2012
+        ))
+        self.assert_json_equal('/counties/laborstats', {
+            'data': [{
+                'fips': 1234,
+                'laborForce': 0.1,
+                'employed': 0.2,
+                'unemployed': 0.3,
+                'unemploymentRate': 0.4,
+                'urSeasonalAdj': 0.5,
+                'year': 2012
+            }]
+        })
+
+    def test_wagestats_all_counties(self):
+        self.db.session.add(models.WageStats(
+            fips=1234,
+            medianwage=0.1,
+            medianhourly=0.2,
+            lessthan10hour=0.3,
+            btwn10and15hour=0.4,
+            totalunder15=0.5,
+            totalpercentorjobs=0.6,
+            countysalary=0.7,
+            countywage=0.8,
+            countywageh2=0.9,
+            countywagerank=0.11,
+            countywageh2rank=0.12,
+            year=2013
+        ))
+        self.assert_json_equal('/counties/wagestats', {
+            'data': [{
+                'fips': 1234,
+                'medianwage': 0.1,
+                'medianhourly': 0.2,
+                'lessthan10hour': 0.3,
+                'btwn10and15hour': 0.4,
+                'totalunder15': 0.5,
+                'totalpercentorjobs': 0.6,
+                'countysalary': 0.7,
+                'countywage': 0.8,
+                'countywageh2': 0.9,
+                'countywagerank': 0.11,
+                'countywageh2rank': 0.12,
+                'year': 2013
+            }]
+        })
+
+    def test_sssbudget_all_counties(self):
+        self.db.session.add(models.SssBudget(
+            familycode='a1i0p0s0t0',
+            housing=0.1,
+            childcare=0.2,
+            food=0.3,
+            transportation=0.4,
+            healthcare=0.5,
+            miscellaneous=0.6,
+            taxes=0.7,
+            fips=1234,
+            year=2012
+        ))
+        self.assert_json_equal('/counties/sssbudget', {
+            'data': [{
+                'familycode': 'a1i0p0s0t0',
+                'housing': 0.1,
+                'childcare': 0.2,
+                'food': 0.3,
+                'transportation': 0.4,
+                'healthcare': 0.5,
+                'miscellaneous': 0.6,
+                'taxes': 0.7,
+                'fips': 1234,
+                'year': 2012
+            }]
+        })
+
+    def test_ssscredits_all_counties(self):
+        self.db.session.add(models.SssCredits(
+            familycode='a1i0p0s0t0',
+            oregonworkingfamilycredit=0.1,
+            earnedincometax=0.2,
+            childcaretax=0.3,
+            childtax=0.4,
+            fips=1234,
+            year=2012
+        ))
+        self.assert_json_equal('/counties/ssscredits', {
+            'data': [{
+                'familycode': 'a1i0p0s0t0',
+                'oregonworkingfamilycredit': 0.1,
+                'earnedincometax': 0.2,
+                'childcaretax': 0.3,
+                'childtax': 0.4,
+                'fips': 1234,
+                'year': 2012
+            }]
+        })
+
+    def test_ssswages_all_counties(self):
+        self.db.session.add(models.SssWages(
+            familycode='a1i0p0s0t0',
+            hourly=0.1,
+            qualifier="foo",
+            monthly=0.2,
+            annual=0.3,
+            fips=1234,
+            year=2012
+        ))
+        self.assert_json_equal('/counties/ssswages', {
+            'data': [{
+                'familycode': 'a1i0p0s0t0',
+                'hourly': 0.1,
+                'qualifier': "foo",
+                'monthly': 0.2,
+                'annual': 0.3,
+                'fips': 1234,
+                'year': 2012
+            }]
+        })
+
+    def test_puma_all_counties(self):
+        pass
 
     def test_county_404(self):
         self.assert_json_equal('/counties/1', {
