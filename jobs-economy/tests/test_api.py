@@ -16,6 +16,7 @@ class ApiTestCase(unittest.TestCase):
         self.app = app.app.test_client()
         self.db = app.db
         self.db.create_all()
+        self.maxDiff = None
 
     def tearDown(self):
         self.db.drop_all()
@@ -90,7 +91,7 @@ class PopulationTestCase(ApiTestCase):
             countywageh2=0.9,
             countywagerank=0.11,
             countywageh2rank=0.12,
-            year=2012
+            year=2013
         ))
         self.db.session.add(models.SssBudget(
             familycode='a1i0p0s0t0',
@@ -128,11 +129,11 @@ class PopulationTestCase(ApiTestCase):
             'data': {
                 'laborStats': {
                     'fips': 1234,
-                    'laborforce': 0.1,
+                    'laborForce': 0.1,
                     'employed': 0.2,
                     'unemployed': 0.3,
-                    'unemploymentrate': 0.4,
-                    'urseasonaladj': 0.5,
+                    'unemploymentRate': 0.4,
+                    'urSeasonalAdj': 0.5,
                     'year': 2012
                 },
                 'population': {
@@ -141,15 +142,10 @@ class PopulationTestCase(ApiTestCase):
                     'adults': 0.2,
                     'kids': 0.3,
                     'kidspresentc': 0.4,
-                    'a1cc': 0.5,
-                    'a2s2c': 0.6,
-                    'a1c0c': 0.7,
-                    'a1teenc': 0.8,
-                    'kidspresentcper': 0.9,
-                    'a1ccper': 0.11,
-                    'a2s2cper': 0.12,
-                    'a1c0cper': 0.13,
-                    'a1teencper': 0.14,
+                    'a1cC': 0.5,
+                    'a2s2C': 0.6,
+                    'a1c0C': 0.7,
+                    'a1teenC': 0.8,
                     'mindiff': 0.15,
                     'mostcommonfamilytype': 'a1i0p0s0t0',
                     'year': 2012
@@ -167,7 +163,7 @@ class PopulationTestCase(ApiTestCase):
                     'countywageh2': 0.9,
                     'countywagerank': 0.11,
                     'countywageh2rank': 0.12,
-                    'year': 2012
+                    'year': 2013
                 },
                 'calculatedStats': {
                     'fips': 1234,
