@@ -206,7 +206,7 @@ class PopulationTestCase(ApiTestCase):
         })
 
     def test_calculatedstats_all_counties(self):
-        self.db.session.add(models.County(fips=1234, county="Abc"))
+#        self.db.session.add(models.County(fips=1234, county="Abc"))
         self.db.session.add(models.CalculatedStats(
             fips=1234,
             percentorkids=0.1,
@@ -221,6 +221,44 @@ class PopulationTestCase(ApiTestCase):
                 'a1allper': 0.2,
                 'a2allper': 0.3,
                 'c0allper': 0.4,
+            }]
+        })
+
+    def test_population_all_counties(self):
+        self.db.session.add(models.County(fips=1234, county="Abc"))
+        self.db.session.add(models.Population(
+            fips=1234,
+            population=0.1,
+            adults=0.2,
+            kids=0.3,
+            kidspresentc=0.4,
+            a1cc=0.5,
+            a2s2c=0.6,
+            a1c0c=0.7,
+            a1teenc=0.8,
+            kidspresentcper=0.9,
+            a1ccper=0.11,
+            a2s2cper=0.12,
+            a1c0cper=0.13,
+            a1teencper=0.14,
+            mindiff=0.15,
+            mostcommonfamilytype='a1i0p0s0t0',
+            year=2012
+        ))
+        self.assert_json_equal('/counties/population', {
+            'data': [{
+                'fips': 1234,
+                'population': 0.1,
+                'adults': 0.2,
+                'kids': 0.3,
+                'kidspresentc': 0.4,
+                'a1cC': 0.5,
+                'a2s2C': 0.6,
+                'a1c0C': 0.7,
+                'a1teenC': 0.8,
+                'mindiff': 0.15,
+                'mostcommonfamilytype': 'a1i0p0s0t0',
+                'year': 2012
             }]
         })
 
