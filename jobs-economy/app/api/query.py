@@ -99,6 +99,11 @@ def construct_population_all():
             "a2s2C": stat.a2s2c,
             "a1c0C": stat.a1c0c,
             "a1teenC": stat.a1teenc,
+            "kidspresentCper": stat.kidspresentcper,
+            "a1cCper": stat.a1ccper,
+            "a2s2Cper": stat.a2s2cper,
+            "a1c0Cper": stat.a1c0cper,
+            "a1teenCper": stat.a1teencper,
             "mindiff": stat.mindiff,
             "mostcommonfamilytype": stat.mostcommonfamilytype,
             "year": stat.year
@@ -118,6 +123,11 @@ def construct_population_for_county(fips):
         "a2s2C": stat.a2s2c,
         "a1c0C": stat.a1c0c,
         "a1teenC": stat.a1teenc,
+        "kidspresentCper": stat.kidspresentcper,
+        "a1cCper": stat.a1ccper,
+        "a2s2Cper": stat.a2s2cper,
+        "a1c0Cper": stat.a1c0cper,
+        "a1teenCper": stat.a1teencper,
         "mindiff": stat.mindiff,
         "mostcommonfamilytype": stat.mostcommonfamilytype,
         "year": stat.year

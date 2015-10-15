@@ -16,7 +16,7 @@ def counties_all():
     return query.construct_counties()
 
 
-@api.route('counties/<int:fips>', methods=['GET'])
+@api.route('counties/<int:fips>/', methods=['GET'])
 def county(fips):
     return query.construct_county(fips)
 
