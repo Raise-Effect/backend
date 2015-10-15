@@ -179,7 +179,7 @@ def construct_wagestats_for_county(fips, year=2013):
         "medianWage": stat.medianwage,
         "medianHourly": stat.medianhourly,
         "lessThan10Hour": stat.lessthan10hour,
-        "btwn10and15Hour": stat.btwn10and15hour,
+        "btwn10And15Hour": stat.btwn10and15hour,
         "totalUnder15": stat.totalunder15,
         "totalPercentORJobs": stat.totalpercentorjobs,
         "countySalary": stat.countysalary,

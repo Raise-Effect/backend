@@ -125,7 +125,7 @@ class PopulationTestCase(ApiTestCase):
         ))
 
         self.db.session.commit()
-        self.assert_json_equal('/counties/1234', {
+        self.assert_json_equal('/counties/1234/', {
             'data': {
                 'laborStats': {
                     'fips': 1234,
@@ -141,7 +141,7 @@ class PopulationTestCase(ApiTestCase):
                     'population': 0.1,
                     'adults': 0.2,
                     'kids': 0.3,
-                    'kidspresentc': 0.4,
+                    'kidsPresent': 0.4,
                     'a1c': 0.5,
                     'a2s2': 0.6,
                     'a1c0': 0.7,
@@ -177,7 +177,7 @@ class PopulationTestCase(ApiTestCase):
                     'a2AllPer': 0.3,
                     'c0AllPer': 0.4,
                 },
-                'sssBudget': {
+                'sssBudget': [{
                     'familyCode': 'a1i0p0s0t0',
                     'housing': 0.1,
                     'childcare': 0.2,
@@ -188,8 +188,8 @@ class PopulationTestCase(ApiTestCase):
                     'taxes': 0.7,
                     'fips': 1234,
                     'year': 2012
-                },
-                'sssCredits': {
+                }],
+                'sssCredits': [{
                     'familyCode': 'a1i0p0s0t0',
                     'oregonWorkingFamilyCredit': 0.1,
                     'earnedIncomeTax': 0.2,
@@ -197,8 +197,8 @@ class PopulationTestCase(ApiTestCase):
                     'childTax': 0.4,
                     'fips': 1234,
                     'year': 2012
-                },
-                'sssWages': {
+                }],
+                'sssWages': [{
                     'familyCode': 'a1i0p0s0t0',
                     'hourly': 0.1,
                     'qualifier': "foo",
@@ -206,7 +206,7 @@ class PopulationTestCase(ApiTestCase):
                     'annual': 0.3,
                     'fips': 1234,
                     'year': 2012
-                }
+                }]
             }
         })
 
@@ -259,6 +259,11 @@ class PopulationTestCase(ApiTestCase):
                 'a2s2': 0.6,
                 'a1c0': 0.7,
                 'a1teen': 0.8,
+                'kidsPresentPer': 0.9,
+                'a1cPer': 0.11,
+                'a2s2Per': 0.12,
+                'a1c0Per': 0.13,
+                'a1teenPer': 0.14,
                 'minDiff': 0.15,
                 'mostCommonFamilyType': 'a1i0p0s0t0',
                 'year': 2012
@@ -335,18 +340,20 @@ class PopulationTestCase(ApiTestCase):
             year=2012
         ))
         self.assert_json_equal('/counties/sssbudget', {
-            'data': [{
-                'familyCode': 'a1i0p0s0t0',
-                'housing': 0.1,
-                'childcare': 0.2,
-                'food': 0.3,
-                'transportation': 0.4,
-                'healthcare': 0.5,
-                'miscellaneous': 0.6,
-                'taxes': 0.7,
-                'fips': 1234,
-                'year': 2012
-            }]
+            'data': [
+                {
+                    'familyCode': 'a1i0p0s0t0',
+                    'housing': 0.1,
+                    'childcare': 0.2,
+                    'food': 0.3,
+                    'transportation': 0.4,
+                    'healthcare': 0.5,
+                    'miscellaneous': 0.6,
+                    'taxes': 0.7,
+                    'fips': 1234,
+                    'year': 2012
+                }
+            ]
         })
 
     def test_ssscredits_all_counties(self):
@@ -360,15 +367,17 @@ class PopulationTestCase(ApiTestCase):
             year=2012
         ))
         self.assert_json_equal('/counties/ssscredits', {
-            'data': [{
-                'familyCode': 'a1i0p0s0t0',
-                'oregonWorkingFamilyCredit': 0.1,
-                'earnedIncomeTax': 0.2,
-                'childcareTax': 0.3,
-                'childTax': 0.4,
-                'fips': 1234,
-                'year': 2012
-            }]
+            'data': [
+                {
+                    'familyCode': 'a1i0p0s0t0',
+                    'oregonWorkingFamilyCredit': 0.1,
+                    'earnedIncomeTax': 0.2,
+                    'childcareTax': 0.3,
+                    'childTax': 0.4,
+                    'fips': 1234,
+                    'year': 2012
+                }
+            ]
         })
 
     def test_ssswages_all_counties(self):
@@ -382,23 +391,25 @@ class PopulationTestCase(ApiTestCase):
             year=2012
         ))
         self.assert_json_equal('/counties/ssswages', {
-            'data': [{
-                'familyCode': 'a1i0p0s0t0',
-                'hourly': 0.1,
-                'qualifier': "foo",
-                'monthly': 0.2,
-                'annual': 0.3,
-                'fips': 1234,
-                'year': 2012
-            }]
+            'data': [
+                {
+                    'familyCode': 'a1i0p0s0t0',
+                    'hourly': 0.1,
+                    'qualifier': "foo",
+                    'monthly': 0.2,
+                    'annual': 0.3,
+                    'fips': 1234,
+                    'year': 2012
+                }
+            ]
         })
 
     def test_puma_all_counties(self):
         pass
 
     def test_county_404(self):
-        self.assert_json_equal('/counties/1', {
-            'errorMessage': 'Not found: http://localhost/api/v1/counties/1',
+        self.assert_json_equal('/counties/1/', {
+            'errorMessage': 'Not found: http://localhost/api/v1/counties/1/',
             'status': 404,
         })
-        self.assertEqual(self.api_get('/counties/1').status, "404 NOT FOUND")
+        self.assertEqual(self.api_get('/counties/1/').status, "404 NOT FOUND")
