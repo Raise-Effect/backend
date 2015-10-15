@@ -90,18 +90,23 @@ def construct_laborstats_for_county(fips):
 def construct_population_all():
     return [
         {
-              "fips": stat.fips,
-              "population": stat.population,
-              "adults": stat.adults,
-              "kids": stat.kids,
-              "kidspresentc": stat.kidspresentc,
-              "a1cC": stat.a1cc,
-              "a2s2C": stat.a2s2c,
-              "a1c0C": stat.a1c0c,
-              "a1teenC": stat.a1teenc,
-              "mindiff": stat.mindiff,
-              "mostcommonfamilytype": stat.mostcommonfamilytype,
-              "year": stat.year
+            "fips": stat.fips,
+            "population": stat.population,
+            "adults": stat.adults,
+            "kids": stat.kids,
+            "kidspresentc": stat.kidspresentc,
+            "a1cC": stat.a1cc,
+            "a2s2C": stat.a2s2c,
+            "a1c0C": stat.a1c0c,
+            "a1teenC": stat.a1teenc,
+            "kidspresentCper": stat.kidspresentcper,
+            "a1cCper": stat.a1ccper,
+            "a2s2Cper": stat.a2s2cper,
+            "a1c0Cper": stat.a1c0cper,
+            "a1teenCper": stat.a1teencper,
+            "mindiff": stat.mindiff,
+            "mostcommonfamilytype": stat.mostcommonfamilytype,
+            "year": stat.year
         } for stat in models.Population.query]
 
 
@@ -109,18 +114,23 @@ def construct_population_all():
 def construct_population_for_county(fips):
     stat = models.Population.query.filter_by(fips=fips).first_or_404()
     return {
-          "fips": stat.fips,
-          "population": stat.population,
-          "adults": stat.adults,
-          "kids": stat.kids,
-          "kidspresentc": stat.kidspresentc,
-          "a1cC": stat.a1cc,
-          "a2s2C": stat.a2s2c,
-          "a1c0C": stat.a1c0c,
-          "a1teenC": stat.a1teenc,
-          "mindiff": stat.mindiff,
-          "mostcommonfamilytype": stat.mostcommonfamilytype,
-          "year": stat.year
+        "fips": stat.fips,
+        "population": stat.population,
+        "adults": stat.adults,
+        "kids": stat.kids,
+        "kidspresentc": stat.kidspresentc,
+        "a1cC": stat.a1cc,
+        "a2s2C": stat.a2s2c,
+        "a1c0C": stat.a1c0c,
+        "a1teenC": stat.a1teenc,
+        "kidspresentCper": stat.kidspresentcper,
+        "a1cCper": stat.a1ccper,
+        "a2s2Cper": stat.a2s2cper,
+        "a1c0Cper": stat.a1c0cper,
+        "a1teenCper": stat.a1teencper,
+        "mindiff": stat.mindiff,
+        "mostcommonfamilytype": stat.mostcommonfamilytype,
+        "year": stat.year
     }
 
 
@@ -139,6 +149,7 @@ def construct_familytype_all():
             "teenagers": stat.teenagers,
             "children": stat.children
         } for stat in models.FamilyType.query]
+
 
 @jsonify_lru_cache()
 def construct_wagestats_all():
@@ -208,7 +219,6 @@ def construct_calculatedstats_for_county(fips):
 def construct_sssbudget_all():
     return [
         {
-            "sssbudgetid": stat.sssbudgetid,
             "familycode": stat.familycode,
             "fips": stat.fips,
             "housing": stat.housing,
@@ -226,7 +236,6 @@ def construct_sssbudget_all():
 def construct_sssbudget_for_county(fips):
     stat = models.SssBudget.query.filter_by(fips=fips).first_or_404()
     return {
-        "sssbudgetid": stat.sssbudgetid,
         "familycode": stat.familycode,
         "housing": stat.housing,
         "childcare": stat.childcare,
@@ -244,7 +253,6 @@ def construct_sssbudget_for_county(fips):
 def construct_ssscredits_all():
     return [
         {
-            "ssscreditsid": stat.ssscreditsid,
             "familycode": stat.familycode,
             "oregonworkingfamilycredit": stat.oregonworkingfamilycredit,
             "earnedincometax": stat.earnedincometax,
@@ -259,7 +267,6 @@ def construct_ssscredits_all():
 def construct_ssscredits_for_county(fips):
     stat = models.SssCredits.query.filter_by(fips=fips).first_or_404()
     return {
-        "ssscreditsid": stat.ssscreditsid,
         "familycode": stat.familycode,
         "oregonworkingfamilycredit": stat.oregonworkingfamilycredit,
         "earnedincometax": stat.earnedincometax,
@@ -274,7 +281,6 @@ def construct_ssscredits_for_county(fips):
 def construct_ssswages_all():
     return [
         {
-            "ssswagesid": stat.ssswagesid,
             "familycode": stat.familycode,
             "hourly": stat.hourly,
             "qualifier": stat.qualifier,
@@ -289,7 +295,6 @@ def construct_ssswages_all():
 def construct_ssswages_for_county(fips):
     stat = models.SssWages.query.filter_by(fips=fips).first_or_404()
     return {
-        "ssswagesid": stat.ssswagesid,
         "familycode": stat.familycode,
         "hourly": stat.hourly,
         "qualifier": stat.qualifier,
@@ -304,7 +309,6 @@ def construct_ssswages_for_county(fips):
 def construct_puma_all():
     return [
         {
-            "pumafipsid": stat.pumafipsid,
             "fips": stat.fips,
             "pumacode": stat.pumacode,
             "areaname": stat.areaname,
@@ -319,7 +323,6 @@ def construct_puma_all():
 def construct_puma_for_county(fips):
     stat = models.Puma.query.filter_by(fips=fips).first_or_404()
     return {
-        "pumafipsid": stat.pumafipsid,
         "fips": stat.fips,
         "pumacode": stat.pumacode,
         "areaname": stat.areaname,

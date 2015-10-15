@@ -173,7 +173,6 @@ _Many of these field names will likely be refactored so that fields like "a1c1C"
 
 #### Labor Statistics
 
-- **laborstatsid**:**float** - _serialized primary key_
 - **fips**:**integer** - _foreign key, references counties(fips)_
 - **laborforce**:**float** - _civilian labor force_
 - **employed**:**float** - _employed_
@@ -184,7 +183,6 @@ _Many of these field names will likely be refactored so that fields like "a1c1C"
 
 #### Wage Statistics
 
-- **wagestatsid**:**integer** - _serialized primary key_
 - **fips**:**integer** - _foreign key, references counties(fips)_
 - **medianwage**:**float** - _2012 Median Wage_
 - **medianhourly**:**float** - _2012 Median Wage - Hourly_
@@ -201,7 +199,6 @@ _Many of these field names will likely be refactored so that fields like "a1c1C"
 
 #### Calculated Statistics
 
-- **calculatedstatsid**:**integer** -	_serialized primary key_
 - **fips**:**integer** - _foreign key, references counties(fips)_
 - **percentorkids**:**float** - _Percentage of State's kids_
 - **a1allper**:**float** - _percentage Single Adults with and without children_
@@ -210,7 +207,6 @@ _Many of these field names will likely be refactored so that fields like "a1c1C"
 
 #### Self-Sufficiency Standard Budget
 
-- **sssbudgetid**:**integer** - _serialized primary key_
 - **familycode**:**string** - _foreign key, references familytype(familycode)_
 - **housing**:**float** - _monthly cost of housing_
 - **childcare**:**float** - _monthly cost of childcare_
@@ -224,7 +220,6 @@ _Many of these field names will likely be refactored so that fields like "a1c1C"
 
 #### Self-Sufficiency Standard Tax Credits
 
-- **ssscreditsid**:**integer** - _serialized primary key_
 - **familycode**:**string** - _foreign key, references familytype(familycode)_
 - **oregonworkingfamilychildcare**:**float** - _amount that can be deducted monthly for oregon working family childcare tax credit (stored as negative value)_
 - **earnedincometax**:**float** - _amount that can be deducted monthly for earned income tax credit (stored as negative value)_
@@ -235,7 +230,6 @@ _Many of these field names will likely be refactored so that fields like "a1c1C"
 
 #### Self-Sufficiency Standard Wages
 
-- **ssswageid**:**integer** - _serialized primary key_
 - **familycode**:**string** - _foreign key, references familytype(familycode)_
 - **hourly**:**float** - _hourly self sufficiency standard wage_
 - **qualifier**:**text** - _describes whether wage applies to individuals or couples_
@@ -246,7 +240,6 @@ _Many of these field names will likely be refactored so that fields like "a1c1C"
 
 #### PUMA codes
 
-- **pumafipsid**:**integer** - _serialized primary key_
 - **fips**:**integer** - _foreign key, references counties(fips)_
 - **pumacode**:**integer** - _puma code_
 - **areaname**:**text** - _short name of puma area_

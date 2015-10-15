@@ -1,6 +1,6 @@
-from flask import Blueprint, jsonify, make_response, render_template
+from flask import Blueprint, jsonify, make_response
 from flask import request
-from . import models, query
+from . import query
 
 api = Blueprint('api', __name__, url_prefix='/api/v1/')
 
@@ -8,7 +8,7 @@ api = Blueprint('api', __name__, url_prefix='/api/v1/')
 @api.route('/', methods=['GET'])
 def index():
     return """Hello. Sourcecode and docs for this API available
-    <a href=https://github.com/Jobs-Economy/backend>here</a>"""
+    <a href="https://github.com/Jobs-Economy/backend">here</a>"""
 
 
 @api.route('counties/', methods=['GET'])
