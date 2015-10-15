@@ -90,18 +90,18 @@ def construct_laborstats_for_county(fips):
 def construct_population_all():
     return [
         {
-          "fips": stat.fips,
-          "population": stat.population,
-          "adults": stat.adults,
-          "kids": stat.kids,
-          "kidspresentc": stat.kidspresentc,
-          "a1cC": stat.a1cc,
-          "a2s2C": stat.a2s2c,
-          "a1c0C": stat.a1c0c,
-          "a1teenC": stat.a1teenc,
-          "mindiff": stat.mindiff,
-          "mostcommonfamilytype": stat.mostcommonfamilytype,
-          "year": stat.year
+            "fips": stat.fips,
+            "population": stat.population,
+            "adults": stat.adults,
+            "kids": stat.kids,
+            "kidspresentc": stat.kidspresentc,
+            "a1cC": stat.a1cc,
+            "a2s2C": stat.a2s2c,
+            "a1c0C": stat.a1c0c,
+            "a1teenC": stat.a1teenc,
+            "mindiff": stat.mindiff,
+            "mostcommonfamilytype": stat.mostcommonfamilytype,
+            "year": stat.year
         } for stat in models.Population.query]
 
 
@@ -109,18 +109,18 @@ def construct_population_all():
 def construct_population_for_county(fips):
     stat = models.Population.query.filter_by(fips=fips).first_or_404()
     return {
-          "fips": stat.fips,
-          "population": stat.population,
-          "adults": stat.adults,
-          "kids": stat.kids,
-          "kidspresentc": stat.kidspresentc,
-          "a1cC": stat.a1cc,
-          "a2s2C": stat.a2s2c,
-          "a1c0C": stat.a1c0c,
-          "a1teenC": stat.a1teenc,
-          "mindiff": stat.mindiff,
-          "mostcommonfamilytype": stat.mostcommonfamilytype,
-          "year": stat.year
+        "fips": stat.fips,
+        "population": stat.population,
+        "adults": stat.adults,
+        "kids": stat.kids,
+        "kidspresentc": stat.kidspresentc,
+        "a1cC": stat.a1cc,
+        "a2s2C": stat.a2s2c,
+        "a1c0C": stat.a1c0c,
+        "a1teenC": stat.a1teenc,
+        "mindiff": stat.mindiff,
+        "mostcommonfamilytype": stat.mostcommonfamilytype,
+        "year": stat.year
     }
 
 
@@ -139,6 +139,7 @@ def construct_familytype_all():
             "teenagers": stat.teenagers,
             "children": stat.children
         } for stat in models.FamilyType.query]
+
 
 @jsonify_lru_cache()
 def construct_wagestats_all():
@@ -223,19 +224,19 @@ def construct_sssbudget_all():
 
 @jsonify_lru_cache()
 def construct_sssbudget_for_county(fips):
-    stat = models.SssBudget.query.filter_by(fips=fips).first_or_404()
-    return {
-        "familycode": stat.familycode,
-        "housing": stat.housing,
-        "childcare": stat.childcare,
-        "food": stat.food,
-        "transportation": stat.transportation,
-        "healthcare": stat.healthcare,
-        "miscellaneous": stat.miscellaneous,
-        "taxes": stat.taxes,
-        "fips": stat.fips,
-        "year": stat.year
-    }
+    return [
+        {
+            "familycode": stat.familycode,
+            "housing": stat.housing,
+            "childcare": stat.childcare,
+            "food": stat.food,
+            "transportation": stat.transportation,
+            "healthcare": stat.healthcare,
+            "miscellaneous": stat.miscellaneous,
+            "taxes": stat.taxes,
+            "fips": stat.fips,
+            "year": stat.year
+        } for stat in models.SssBudget.query.filter_by(fips=fips)]
 
 
 @jsonify_lru_cache()
@@ -254,16 +255,16 @@ def construct_ssscredits_all():
 
 @jsonify_lru_cache()
 def construct_ssscredits_for_county(fips):
-    stat = models.SssCredits.query.filter_by(fips=fips).first_or_404()
-    return {
-        "familycode": stat.familycode,
-        "oregonworkingfamilycredit": stat.oregonworkingfamilycredit,
-        "earnedincometax": stat.earnedincometax,
-        "childcaretax": stat.childcaretax,
-        "childtax": stat.childtax,
-        "fips": stat.fips,
-        "year": stat.year
-    }
+    return [
+        {
+            "familycode": stat.familycode,
+            "oregonworkingfamilycredit": stat.oregonworkingfamilycredit,
+            "earnedincometax": stat.earnedincometax,
+            "childcaretax": stat.childcaretax,
+            "childtax": stat.childtax,
+            "fips": stat.fips,
+            "year": stat.year
+        } for stat in models.SssCredits.query.filter_by(fips=fips)]
 
 
 @jsonify_lru_cache()
@@ -282,16 +283,16 @@ def construct_ssswages_all():
 
 @jsonify_lru_cache()
 def construct_ssswages_for_county(fips):
-    stat = models.SssWages.query.filter_by(fips=fips).first_or_404()
-    return {
-        "familycode": stat.familycode,
-        "hourly": stat.hourly,
-        "qualifier": stat.qualifier,
-        "monthly": stat.monthly,
-        "annual": stat.annual,
-        "fips": stat.fips,
-        "year": stat.year
-    }
+    return [
+        {
+            "familycode": stat.familycode,
+            "hourly": stat.hourly,
+            "qualifier": stat.qualifier,
+            "monthly": stat.monthly,
+            "annual": stat.annual,
+            "fips": stat.fips,
+            "year": stat.year
+        } for stat in models.SssWages.query.filter_by(fips=fips)]
 
 
 @jsonify_lru_cache()
@@ -310,12 +311,12 @@ def construct_puma_all():
 
 @jsonify_lru_cache()
 def construct_puma_for_county(fips):
-    stat = models.Puma.query.filter_by(fips=fips).first_or_404()
-    return {
-        "fips": stat.fips,
-        "pumacode": stat.pumacode,
-        "areaname": stat.areaname,
-        "pumaname": stat.pumaname,
-        "pumapopulation": stat.pumapopulation,
-        "pumaweight": stat.pumaweight
-    }
+    return [
+        {
+            "fips": stat.fips,
+            "pumacode": stat.pumacode,
+            "areaname": stat.areaname,
+            "pumaname": stat.pumaname,
+            "pumapopulation": stat.pumapopulation,
+            "pumaweight": stat.pumaweight
+        } for stat in models.Puma.query.filter_by(fips=fips)]
