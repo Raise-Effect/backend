@@ -99,6 +99,11 @@ def construct_population_all():
             "a2s2C": stat.a2s2c,
             "a1c0C": stat.a1c0c,
             "a1teenC": stat.a1teenc,
+            "kidspresentcper": stat.kidspresentcper,
+            "a1ccper": stat.a1ccper,
+            "a2s2cper": stat.a2s2cper,
+            "a1c0cper": stat.a1c0cper,
+            "a1teencper": stat.a1teencper,
             "mindiff": stat.mindiff,
             "mostcommonfamilytype": stat.mostcommonfamilytype,
             "year": stat.year
