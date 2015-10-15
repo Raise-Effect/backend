@@ -94,18 +94,18 @@ def construct_population_all():
             "population": stat.population,
             "adults": stat.adults,
             "kids": stat.kids,
-            "kidspresentc": stat.kidspresentc,
-            "a1cC": stat.a1cc,
-            "a2s2C": stat.a2s2c,
-            "a1c0C": stat.a1c0c,
-            "a1teenC": stat.a1teenc,
-            "kidspresentCper": stat.kidspresentcper,
-            "a1cCper": stat.a1ccper,
-            "a2s2Cper": stat.a2s2cper,
-            "a1c0Cper": stat.a1c0cper,
-            "a1teenCper": stat.a1teencper,
-            "mindiff": stat.mindiff,
-            "mostcommonfamilytype": stat.mostcommonfamilytype,
+            "kidsPresent": stat.kidspresentc,
+            "a1c": stat.a1cc,
+            "a2s2": stat.a2s2c,
+            "a1c0": stat.a1c0c,
+            "a1teen": stat.a1teenc,
+            "kidsPresentPer": stat.kidspresentcper,
+            "a1cPer": stat.a1ccper,
+            "a2s2Per": stat.a2s2cper,
+            "a1c0Per": stat.a1c0cper,
+            "a1teenPer": stat.a1teencper,
+            "minDiff": stat.mindiff,
+            "mostCommonFamilyType": stat.mostcommonfamilytype,
             "year": stat.year
         } for stat in models.Population.query]
 
@@ -118,18 +118,18 @@ def construct_population_for_county(fips):
         "population": stat.population,
         "adults": stat.adults,
         "kids": stat.kids,
-        "kidspresentc": stat.kidspresentc,
-        "a1cC": stat.a1cc,
-        "a2s2C": stat.a2s2c,
-        "a1c0C": stat.a1c0c,
-        "a1teenC": stat.a1teenc,
-        "kidspresentCper": stat.kidspresentcper,
-        "a1cCper": stat.a1ccper,
-        "a2s2Cper": stat.a2s2cper,
-        "a1c0Cper": stat.a1c0cper,
-        "a1teenCper": stat.a1teencper,
-        "mindiff": stat.mindiff,
-        "mostcommonfamilytype": stat.mostcommonfamilytype,
+        "kidsPresent": stat.kidspresentc,
+        "a1c": stat.a1cc,
+        "a2s2": stat.a2s2c,
+        "a1c0": stat.a1c0c,
+        "a1teen": stat.a1teenc,
+        "kidsPresentPer": stat.kidspresentcper,
+        "a1cPer": stat.a1ccper,
+        "a2s2Per": stat.a2s2cper,
+        "a1c0Per": stat.a1c0cper,
+        "a1teenPer": stat.a1teencper,
+        "minDiff": stat.mindiff,
+        "mostCommonFamilyType": stat.mostcommonfamilytype,
         "year": stat.year
     }
 
@@ -138,14 +138,14 @@ def construct_population_for_county(fips):
 def construct_familytype_all():
     return [
         {
-            "familycode": stat.familycode,
-            "description-fc": stat.descriptionfc,
-            "familycode-rollup": stat.familycoderollup,
-            "description-fcr": stat.descriptionfcr,
+            "familyCode": stat.familycode,
+            "descriptionFc": stat.descriptionfc,
+            "familyCodeRollup": stat.familycoderollup,
+            "descriptionFcr": stat.descriptionfcr,
             "adults": stat.adults,
             "infants": stat.infants,
             "preschoolers": stat.preschoolers,
-            "schoolage": stat.schoolage,
+            "schoolAge": stat.schoolage,
             "teenagers": stat.teenagers,
             "children": stat.children
         } for stat in models.FamilyType.query]
@@ -156,17 +156,17 @@ def construct_wagestats_all():
     return [
         {
             "fips": stat.fips,
-            "medianwage": stat.medianwage,
-            "medianhourly": stat.medianhourly,
-            "lessthan10hour": stat.lessthan10hour,
-            "btwn10and15hour": stat.btwn10and15hour,
-            "totalunder15": stat.totalunder15,
-            "totalpercentorjobs": stat.totalpercentorjobs,
-            "countysalary": stat.countysalary,
-            "countywage": stat.countywage,
-            "countywageh2": stat.countywageh2,
-            "countywagerank": stat.countywagerank,
-            "countywageh2rank": stat.countywageh2rank,
+            "medianWage": stat.medianwage,
+            "medianHourly": stat.medianhourly,
+            "lessThan10Hour": stat.lessthan10hour,
+            "btwn10And15Hour": stat.btwn10and15hour,
+            "totalUnder15": stat.totalunder15,
+            "totalPercentORJobs": stat.totalpercentorjobs,
+            "countySalary": stat.countysalary,
+            "countyWage": stat.countywage,
+            "countyWageH2": stat.countywageh2,
+            "countyWageRank": stat.countywagerank,
+            "countyWageH2Rank": stat.countywageh2rank,
             "year": stat.year
         } for stat in models.WageStats.query]
 
@@ -176,17 +176,17 @@ def construct_wagestats_for_county(fips, year=2013):
     stat = models.WageStats.query.filter_by(fips=fips).first_or_404()
     return {
         "fips": stat.fips,
-        "medianwage": stat.medianwage,
-        "medianhourly": stat.medianhourly,
-        "lessthan10hour": stat.lessthan10hour,
-        "btwn10and15hour": stat.btwn10and15hour,
-        "totalunder15": stat.totalunder15,
-        "totalpercentorjobs": stat.totalpercentorjobs,
-        "countysalary": stat.countysalary,
-        "countywage": stat.countywage,
-        "countywageh2": stat.countywageh2,
-        "countywagerank": stat.countywagerank,
-        "countywageh2rank": stat.countywageh2rank,
+        "medianWage": stat.medianwage,
+        "medianHourly": stat.medianhourly,
+        "lessThan10Hour": stat.lessthan10hour,
+        "btwn10and15Hour": stat.btwn10and15hour,
+        "totalUnder15": stat.totalunder15,
+        "totalPercentORJobs": stat.totalpercentorjobs,
+        "countySalary": stat.countysalary,
+        "countyWage": stat.countywage,
+        "countyWageH2": stat.countywageh2,
+        "countyWageRank": stat.countywagerank,
+        "countyWageH2Rank": stat.countywageh2rank,
         "year": year
     }
 
@@ -196,10 +196,10 @@ def construct_calculatedstats_all():
     return [
         {
             "fips": stat.fips,
-            "percentorkids": stat.percentorkids,
-            "a1allper": stat.a1allper,
-            "a2allper": stat.a2allper,
-            "c0allper": stat.c0allper
+            "percentORKids": stat.percentorkids,
+            "a1AllPer": stat.a1allper,
+            "a2AllPer": stat.a2allper,
+            "c0AllPer": stat.c0allper
         } for stat in models.CalculatedStats.query]
 
 
@@ -208,10 +208,10 @@ def construct_calculatedstats_for_county(fips):
     stat = models.CalculatedStats.query.filter_by(fips=fips).first_or_404()
     return {
         "fips": stat.fips,
-        "percentorkids": stat.percentorkids,
-        "a1allper": stat.a1allper,
-        "a2allper": stat.a2allper,
-        "c0allper": stat.c0allper
+        "percentORKids": stat.percentorkids,
+        "a1AllPer": stat.a1allper,
+        "a2AllPer": stat.a2allper,
+        "c0AllPer": stat.c0allper
     }
 
 
@@ -219,7 +219,7 @@ def construct_calculatedstats_for_county(fips):
 def construct_sssbudget_all():
     return [
         {
-            "familycode": stat.familycode,
+            "familyCode": stat.familycode,
             "fips": stat.fips,
             "housing": stat.housing,
             "childcare": stat.childcare,
@@ -236,7 +236,7 @@ def construct_sssbudget_all():
 def construct_sssbudget_for_county(fips):
     return [
         {
-            "familycode": stat.familycode,
+            "familyCode": stat.familycode,
             "housing": stat.housing,
             "childcare": stat.childcare,
             "food": stat.food,
@@ -253,11 +253,11 @@ def construct_sssbudget_for_county(fips):
 def construct_ssscredits_all():
     return [
         {
-            "familycode": stat.familycode,
-            "oregonworkingfamilycredit": stat.oregonworkingfamilycredit,
-            "earnedincometax": stat.earnedincometax,
-            "childcaretax": stat.childcaretax,
-            "childtax": stat.childtax,
+            "familyCode": stat.familycode,
+            "oregonWorkingFamilyCredit": stat.oregonworkingfamilycredit,
+            "earnedIncomeTax": stat.earnedincometax,
+            "childcareTax": stat.childcaretax,
+            "childTax": stat.childtax,
             "fips": stat.fips,
             "year": stat.year
         } for stat in models.SssCredits.query]
@@ -267,11 +267,11 @@ def construct_ssscredits_all():
 def construct_ssscredits_for_county(fips):
     return [
         {
-            "familycode": stat.familycode,
-            "oregonworkingfamilycredit": stat.oregonworkingfamilycredit,
-            "earnedincometax": stat.earnedincometax,
-            "childcaretax": stat.childcaretax,
-            "childtax": stat.childtax,
+            "familyCode": stat.familycode,
+            "oregonWorkingFamilyCredit": stat.oregonworkingfamilycredit,
+            "earnedIncomeTax": stat.earnedincometax,
+            "childcareTax": stat.childcaretax,
+            "childTax": stat.childtax,
             "fips": stat.fips,
             "year": stat.year
         } for stat in models.SssCredits.query.filter_by(fips=fips)]
@@ -281,7 +281,7 @@ def construct_ssscredits_for_county(fips):
 def construct_ssswages_all():
     return [
         {
-            "familycode": stat.familycode,
+            "familyCode": stat.familycode,
             "hourly": stat.hourly,
             "qualifier": stat.qualifier,
             "monthly": stat.monthly,
@@ -295,7 +295,7 @@ def construct_ssswages_all():
 def construct_ssswages_for_county(fips):
     return [
         {
-            "familycode": stat.familycode,
+            "familyCode": stat.familycode,
             "hourly": stat.hourly,
             "qualifier": stat.qualifier,
             "monthly": stat.monthly,
@@ -310,11 +310,11 @@ def construct_puma_all():
     return [
         {
             "fips": stat.fips,
-            "pumacode": stat.pumacode,
-            "areaname": stat.areaname,
-            "pumaname": stat.pumaname,
-            "pumapopulation": stat.pumapopulation,
-            "pumaweight": stat.pumaweight
+            "pumaCode": stat.pumacode,
+            "areaName": stat.areaname,
+            "pumaName": stat.pumaname,
+            "pumaPopulation": stat.pumapopulation,
+            "pumaWeight": stat.pumaweight
         }
         for stat in models.Puma.query]
 
@@ -324,9 +324,9 @@ def construct_puma_for_county(fips):
     return [
         {
             "fips": stat.fips,
-            "pumacode": stat.pumacode,
-            "areaname": stat.areaname,
-            "pumaname": stat.pumaname,
-            "pumapopulation": stat.pumapopulation,
-            "pumaweight": stat.pumaweight
+            "pumaCode": stat.pumacode,
+            "areaName": stat.areaname,
+            "pumaName": stat.pumaname,
+            "pumaPopulation": stat.pumapopulation,
+            "pumaWeight": stat.pumaweight
         } for stat in models.Puma.query.filter_by(fips=fips)]

@@ -24,3 +24,13 @@ def not_found(error):
     }
     resp = jsonify(message)
     return make_response(resp, 404)
+
+
+@app.errorhandler(Exception)
+def internal_server_error(error):
+    message = {
+        'status': 500,
+        'errorMessage': 'Internal Server Error: %r' % error
+    }
+    resp = jsonify(message)
+    return make_response(resp, 500)
