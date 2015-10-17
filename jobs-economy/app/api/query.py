@@ -46,6 +46,8 @@ def construct_county(fips):
         'sssBudget': construct_sssbudget_for_county.__wrapped__(fips),
         'sssCredits': construct_ssscredits_for_county.__wrapped__(fips),
         'sssWages': construct_ssswages_for_county.__wrapped__(fips),
+        'censusHousehold': construct_censushousehold_for_county.__wrapped__(fips),
+        'familyCodeWeight': construct_familycodeweight_for_county.__wrapped__(fips),
     }
 
 
@@ -330,3 +332,55 @@ def construct_puma_for_county(fips):
             "pumaPopulation": stat.pumapopulation,
             "pumaWeight": stat.pumaweight
         } for stat in models.Puma.query.filter_by(fips=fips)]
+
+
+@jsonify_lru_cache()
+def construct_censushousehold_all():
+    return [
+        {
+            "fips": stat.fips,
+            "lowIncomeSingleAdults": stat.lowincomesingleadults,
+            "totalSingleAdults": stat.totalsingleadults,
+            "lowIncomeSingleParents": stat.lowincomesingleparents,
+            "totalSingleParents": stat.totalsingleparents,
+            "lowIncomeMarriedParents": stat.lowincomemarriedparents,
+            "totalMarriedParents": stat.totalmarriedparents,
+            "totalHouseHolds": stat.totalhouseholds
+        } for stat in models.CensusHousehold.query]
+
+
+@jsonify_lru_cache()
+def construct_censushousehold_for_county(fips):
+    stat = models.CensusHousehold.query.filter_by(fips=fips).first_or_404()
+    return {
+        "fips": stat.fips,
+        "lowIncomeSingleAdults": stat.lowincomesingleadults,
+        "totalSingleAdults": stat.totalsingleadults,
+        "lowIncomeSingleParents": stat.lowincomesingleparents,
+        "totalSingleParents": stat.totalsingleparents,
+        "lowIncomeMarriedParents": stat.lowincomemarriedparents,
+        "totalMarriedParents": stat.totalmarriedparents,
+        "totalHouseHolds": stat.totalhouseholds
+    }
+
+
+@jsonify_lru_cache()
+def construct_familycodeweight_all():
+    return [
+        {
+            "fips": stat.fips,
+            "familycode": stat.familycode,
+            "weight": stat.weight,
+        }
+        for stat in models.FamilyCodeWeight.query]
+
+
+@jsonify_lru_cache()
+def construct_familycodeweight_for_county(fips):
+    return [
+        {
+            "fips": stat.fips,
+            "familycode": stat.familycode,
+            "weight": stat.weight,
+        }
+        for stat in models.FamilyCodeWeight.query.filter_by(fips=fips)]

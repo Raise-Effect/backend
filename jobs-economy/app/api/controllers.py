@@ -4,6 +4,7 @@ from . import query
 from datetime import timedelta
 from functools import update_wrapper
 
+
 def crossdomain(origin=None, methods=None, headers=None,
                 max_age=21600, attach_to_all=True,
                 automatic_options=True):
@@ -55,13 +56,13 @@ def index():
     <a href="https://github.com/Jobs-Economy/backend">here</a>"""
 
 
-@api.route('counties/', methods=['GET'])
+@api.route('counties', methods=['GET'])
 @crossdomain(origin='*')
 def counties_all():
     return query.construct_counties()
 
 
-@api.route('counties/<int:fips>/', methods=['GET'])
+@api.route('counties/<int:fips>', methods=['GET'])
 @crossdomain(origin='*')
 def county(fips):
     return query.construct_county(fips)
@@ -168,6 +169,30 @@ def puma_all():
 @crossdomain(origin='*')
 def puma_for_county(fips):
     return query.construct_puma_for_county(fips)
+
+
+@api.route('counties/censushousehold', methods=['GET'])
+@crossdomain(origin='*')
+def censushousehold_all():
+    return query.construct_censushousehold_all()
+
+
+@api.route('counties/<int:fips>/censushousehold', methods=['GET'])
+@crossdomain(origin='*')
+def censushousehold_for_county(fips):
+    return query.construct_censushousehold_for_county(fips)
+
+
+@api.route('counties/familycodeweight', methods=['GET'])
+@crossdomain(origin='*')
+def familycodeweight_all():
+    return query.construct_familycodeweight_all()
+
+
+@api.route('counties/<int:fips>/familycodeweight', methods=['GET'])
+@crossdomain(origin='*')
+def familycodeweight_for_county(fips):
+    return query.construct_familycodeweight_for_county(fips)
 
 
 @api.errorhandler(404)

@@ -67,6 +67,8 @@ make_map_kwargs(models.SssBudget)
 make_map_kwargs(models.SssCredits)
 make_map_kwargs(models.SssWages)
 make_map_kwargs(models.WageStats)
+make_map_kwargs(models.CensusHousehold)
+make_map_kwargs(models.FamilyCodeWeight)
 
 
 def list_models(args):
