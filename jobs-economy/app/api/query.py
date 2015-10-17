@@ -47,6 +47,7 @@ def construct_county(fips):
         'sssCredits': construct_ssscredits_for_county.__wrapped__(fips),
         'sssWages': construct_ssswages_for_county.__wrapped__(fips),
         'censusHousehold': construct_censushousehold_for_county.__wrapped__(fips),
+        'familyCodeWeight': construct_familycodeweight_for_county.__wrapped__(fips),
     }
 
 
