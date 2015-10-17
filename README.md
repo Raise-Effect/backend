@@ -55,6 +55,7 @@ The base URL is:
 * **Self-Sufficiency Standard Tax Credits**: `/ssscredits`
 * **Self-Sufficiency Standard Wages**: `/ssswages`
 * **PUMA codes**: `/puma`
+* **Census Household** `/censushousehold`
 * Additional **Calculated Statistics** (see API reference): `/calculatedstats`
 
 ### Example requests
@@ -246,3 +247,16 @@ _Many of these field names will likely be refactored so that fields like "a1c1C"
 - **pumaname**:**text** - _long name of puma area_
 - **pumapopulation**:**float** - _population of puma area_
 - **pumaweight**:**float** - _weight of puma area_
+
+#### Census Household
+
+- **fips**:**integer** - _foreign key, references counties(fips)_
+- **lowIncomeSingleAdults**:**integer** - _number of low income single adults in county 
+- **totalSingleAdults**:**integer** - _number of single adults in county
+- **lowIncomeSingleParents**:**integer** - _number of low income single parents in county
+- **totalSingleParents**:**integer** - _number of single parents in county
+- **lowIncomeMarriedParents**:**integer** - _number of low income married parents in county
+- **totalMarriedParents**:**integer** - _number of married parents in county
+- **totalHouseholds**:**integer** - _number of households in county
+
+
