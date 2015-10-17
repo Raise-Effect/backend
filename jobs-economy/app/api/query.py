@@ -361,3 +361,25 @@ def construct_censushousehold_for_county(fips):
         "totalMarriedParents": stat.totalmarriedparents,
         "totalHouseHolds": stat.totalhouseholds
     }
+
+
+@jsonify_lru_cache()
+def construct_familycodeweight_all():
+    return [
+        {
+            "fips": stat.fips,
+            "familycode": stat.familycode,
+            "weight": stat.weight,
+        }
+        for stat in models.FamilyCodeWeight.query]
+
+
+@jsonify_lru_cache()
+def construct_familycodeweight_for_county(fips):
+    return [
+        {
+            "fips": stat.fips,
+            "familycode": stat.familycode,
+            "weight": stat.weight,
+        }
+        for stat in models.FamilyCodeWeight.query.filter_by(fips=fips)]
