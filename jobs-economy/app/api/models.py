@@ -175,3 +175,19 @@ class WageStats(db.Model):
 
     county = db.relationship(u'County',
         backref=db.backref('wage_stats', lazy="dynamic"))
+
+
+class CensusHousehold(db.Model):
+    __tablename__ = 'censushousehold'
+
+    fips = db.Column(db.ForeignKey(u'counties.fips'))
+    lowincomesingleadults = db.Column(db.Integer)
+    totalsingleadults = db.Column(db.Integer)
+    lowincomesingleparents = db.Column(db.Integer)
+    totalsingleparents = db.Column(db.Integer)
+    lowincomemarriedparents = db.Column(db.Integer)
+    totalmarriedparents = db.Column(db.Integer)
+    totalhouseholds = db.Column(db.Integer)
+
+    county = db.relationship(u'County',
+        backref=db.backref('census_household', lazy="dynamic"))
