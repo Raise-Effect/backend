@@ -333,15 +333,30 @@ def construct_puma_for_county(fips):
 
 
 @jsonify_lru_cache()
-def construct_censushouseholds(fips):
+def construct_censushousehold_all():
+    return [
+        {
+            "fips": stat.fips,
+            "lowIncomeSingleAdults": stat.lowincomesingleadults,
+            "totalSingleAdults": stat.totalsingleadults,
+            "lowIncomeSingleParents": stat.lowincomesingleparents,
+            "totalSingleParents": stat.totalsingleparents,
+            "lowIncomeMarriedParents": stat.lowincomemarriedparents,
+            "totalMarriedParents": stat.totalmarriedparents,
+            "totalHouseHolds": stat.totalhouseholds
+        } for stat in models.CensusHousehold.query]
+
+
+@jsonify_lru_cache()
+def construct_censushousehold_for_county(fips):
     stat = models.CensusHousehold.query.filter_by(fips=fips).first_or_404()
     return {
         "fips": stat.fips,
         "lowIncomeSingleAdults": stat.lowincomesingleadults,
         "totalSingleAdults": stat.totalsingleadults,
         "lowIncomeSingleParents": stat.lowincomesingleparents,
-        "totalSingleParents": totalsingleparents,
-        "lowIncomeMarriedParents": lowincomemarriedparents,
-        "totalMarriedParents": totalmarriedparents,
-        "totalHouseHolds": totalhouseholds
+        "totalSingleParents": stat.totalsingleparents,
+        "lowIncomeMarriedParents": stat.lowincomemarriedparents,
+        "totalMarriedParents": stat.totalmarriedparents,
+        "totalHouseHolds": stat.totalhouseholds
     }
