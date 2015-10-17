@@ -330,3 +330,18 @@ def construct_puma_for_county(fips):
             "pumaPopulation": stat.pumapopulation,
             "pumaWeight": stat.pumaweight
         } for stat in models.Puma.query.filter_by(fips=fips)]
+
+
+@jsonify_lru_cache()
+def construct_censushouseholds(fips):
+    stat = models.CensusHousehold.query.filter_by(fips=fips).first_or_404()
+    return {
+        "fips": stat.fips,
+        "lowIncomeSingleAdults": stat.lowincomesingleadults,
+        "totalSingleAdults": stat.totalsingleadults,
+        "lowIncomeSingleParents": stat.lowincomesingleparents,
+        "totalSingleParents": totalsingleparents,
+        "lowIncomeMarriedParents": lowincomemarriedparents,
+        "totalMarriedParents": totalmarriedparents,
+        "totalHouseHolds": totalhouseholds
+    }
