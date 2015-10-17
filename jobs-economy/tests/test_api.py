@@ -405,7 +405,26 @@ class PopulationTestCase(ApiTestCase):
         })
 
     def test_puma_all_counties(self):
-        pass
+        self.db.session.add(models.Puma(
+            fips=1234,
+            pumacode=5678,
+            areaname="area-name",
+            pumaname="puma-name",
+            pumapopulation=0.1,
+            pumaweight=0.2
+        ))
+        self.assert_json_equal('/counties/puma', {
+            "data": [
+                {
+                    "fips": 1234,
+                    "pumaCode": 5678,
+                    "areaName": "area-name",
+                    "pumaName": "puma-name",
+                    "pumaPopulation": 0.1,
+                    "pumaWeight": 0.2,
+                }
+            ]
+        })
 
     def test_county_404(self):
         self.assert_json_equal('/counties/1/', {
