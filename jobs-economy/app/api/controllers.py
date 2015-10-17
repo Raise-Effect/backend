@@ -183,13 +183,13 @@ def censushousehold_for_county(fips):
     return query.construct_censushousehold_for_county(fips)
 
 
-@api.route('counties/familycodeweight/', methods=['GET'])
+@api.route('counties/familycodeweight', methods=['GET'])
 @crossdomain(origin='*')
 def familycodeweight_all():
     return query.construct_familycodeweight_all()
 
 
-@api.route('counties/<int:fips>/familycodeweight/', methods=['GET'])
+@api.route('counties/<int:fips>/familycodeweight', methods=['GET'])
 @crossdomain(origin='*')
 def familycodeweight_for_county(fips):
     return query.construct_familycodeweight_for_county(fips)
