@@ -426,6 +426,56 @@ class PopulationTestCase(ApiTestCase):
             ]
         })
 
+    def test_census_household(self):
+        self.db.session.add(models.CensusHousehold(
+            fips=1234,
+            lowincomesingleadults=1,
+            totalsingleadults=2,
+            lowincomesingleparents=3,
+            totalsingleparents=4,
+            lowincomemarriedparents=5,
+            totalmarriedparents=6,
+            totalhouseholds=7
+        ))
+        self.db.session.commit()
+        self.assert_json_equal('/counties/1234/censushousehold', {
+            "data": {
+                "fips": 1234,
+                "lowIncomeSingleAdults": 1,
+                "totalSingleAdults": 2,
+                "lowIncomeSingleParents": 3,
+                "totalSingleParents": 4,
+                "lowIncomeMarriedParents": 5,
+                "totalMarriedParents": 6,
+                "totalHouseHolds": 7,
+            }
+        })
+
+    def test_census_household_all_counties(self):
+        self.db.session.add(models.CensusHousehold(
+            fips=1234,
+            lowincomesingleadults=1,
+            totalsingleadults=2,
+            lowincomesingleparents=3,
+            totalsingleparents=4,
+            lowincomemarriedparents=5,
+            totalmarriedparents=6,
+            totalhouseholds=7
+        ))
+        self.db.session.commit()
+        self.assert_json_equal('/counties/censushousehold', {
+            "data": [{
+                "fips": 1234,
+                "lowIncomeSingleAdults": 1,
+                "totalSingleAdults": 2,
+                "lowIncomeSingleParents": 3,
+                "totalSingleParents": 4,
+                "lowIncomeMarriedParents": 5,
+                "totalMarriedParents": 6,
+                "totalHouseHolds": 7,
+            }]
+        })
+
     def test_county_404(self):
         self.assert_json_equal('/counties/1/', {
             'errorMessage': 'Not found: http://localhost/api/v1/counties/1/',
