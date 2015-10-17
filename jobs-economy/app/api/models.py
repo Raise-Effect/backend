@@ -193,12 +193,17 @@ class CensusHousehold(db.Model):
     county = db.relationship(u'County',
         backref=db.backref('census_household', lazy="dynamic"))
 
-    # def __init__(self):
-    #     self.fips = 1234
-    #     self.lowincomesingleadults = 1
-    #     self.totalsingleadults = 1
-    #     self.lowincomesingleparents = 1
-    #     self.totalsingleparents = 1
-    #     self.lowincomemarriedparents = 1
-    #     self.totalmarriedparents = 1
-    #     self.totalhouseholds = 1
+
+class FamilyCodeWeight(db.Model):
+    __tablename__ = 'familycodeweights'
+
+    id = db.Column(db.Integer, primary_key=True)
+    fips = db.Column(db.ForeignKey(u'counties.fips'))
+    familycode = db.Column(db.ForeignKey(u'familytype.familycode'))
+    weight = db.Column(db.Float)
+
+    county = db.relationship(u'County',
+        backref=db.backref('family_code_weight', lazy="dynamic"))
+
+    familytype = db.relationship(u'FamilyType',
+        backref=db.backref('family_code_weight', lazy="dynamic"))
