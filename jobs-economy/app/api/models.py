@@ -180,6 +180,7 @@ class WageStats(db.Model):
 class CensusHousehold(db.Model):
     __tablename__ = 'censushousehold'
 
+    id = db.Column(db.Integer, primary_key=True)
     fips = db.Column(db.ForeignKey(u'counties.fips'))
     lowincomesingleadults = db.Column(db.Integer)
     totalsingleadults = db.Column(db.Integer)
@@ -191,3 +192,13 @@ class CensusHousehold(db.Model):
 
     county = db.relationship(u'County',
         backref=db.backref('census_household', lazy="dynamic"))
+
+    # def __init__(self):
+    #     self.fips = 1234
+    #     self.lowincomesingleadults = 1
+    #     self.totalsingleadults = 1
+    #     self.lowincomesingleparents = 1
+    #     self.totalsingleparents = 1
+    #     self.lowincomemarriedparents = 1
+    #     self.totalmarriedparents = 1
+    #     self.totalhouseholds = 1
