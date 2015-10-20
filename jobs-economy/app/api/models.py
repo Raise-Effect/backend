@@ -154,23 +154,29 @@ class SssWages(db.Model):
     county = db.relationship(u'County',
         backref=db.backref('sss_wages', lazy="dynamic"))
 
-#TODO: update WageStats model with new csv data
+
 class WageStats(db.Model):
     __tablename__ = 'wagestats'
 
     wagestatsid = db.Column(db.Integer, primary_key=True)
     fips = db.Column(db.ForeignKey(u'counties.fips'))
-    medianwage = db.Column(db.Float)
-    medianhourly = db.Column(db.Float)
+    householdmedianincome = db.Column(db.Integer)
+    familymedianincome = db.Column(db.Integer)
+    marriedmedianincome = db.Column(db.Integer)
+    nonfamilymedianincome = db.Column(db.Integer)
     lessthan10hour = db.Column(db.Float)
     btwn10and15hour = db.Column(db.Float)
     totalunder15 = db.Column(db.Float)
-    totalpercentorjobs = db.Column(db.Float)
-    countysalary = db.Column(db.Float)
-    countywage = db.Column(db.Float)
-    countywageh2 = db.Column(db.Float)
-    countywagerank = db.Column(db.Float)
-    countywageh2rank = db.Column(db.Float)
+    percenthouseholdsbreak1 = db.Column(db.Float)
+    percenthouseholdsbreak2 = db.Column(db.Float)
+    percenthouseholdsbreak3 = db.Column(db.Float)
+    percenthouseholdsbreak4 = db.Column(db.Float)
+    percenthouseholdsbreak5 = db.Column(db.Float)
+    percenthouseholdsbreak6 = db.Column(db.Float)
+    percenthouseholdsbreak7 = db.Column(db.Float)
+    percenthouseholdsbreak8 = db.Column(db.Float)
+    percenthouseholdsbreak9 = db.Column(db.Float)
+    percenthouseholdsbreak10 = db.Column(db.Float)
     year = db.Column(db.Integer)
 
     county = db.relationship(u'County',
