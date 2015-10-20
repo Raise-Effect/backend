@@ -158,18 +158,24 @@ def construct_wagestats_all():
     return [
         {
             "fips": stat.fips,
-            "medianWage": stat.medianwage,
-            "medianHourly": stat.medianhourly,
+            "householdMedianIncome": stat.householdmedianincome,
+            "familyMedianIncome": stat.familymedianincome,
+            "marriedMedianIncome": stat.marriedmedianincome,
+            "nonFamilyMedianIncome": stat.nonfamilymedianincome,
             "lessThan10Hour": stat.lessthan10hour,
             "btwn10And15Hour": stat.btwn10and15hour,
             "totalUnder15": stat.totalunder15,
-            "totalPercentORJobs": stat.totalpercentorjobs,
-            "countySalary": stat.countysalary,
-            "countyWage": stat.countywage,
-            "countyWageH2": stat.countywageh2,
-            "countyWageRank": stat.countywagerank,
-            "countyWageH2Rank": stat.countywageh2rank,
-            "year": stat.year
+            "percentHouseholdsBreak1": stat.percenthouseholdsbreak1,
+            "percentHouseholdsBreak2": stat.percenthouseholdsbreak2,
+            "percentHouseholdsBreak3": stat.percenthouseholdsbreak3,
+            "percentHouseholdsBreak4": stat.percenthouseholdsbreak4,
+            "percentHouseholdsBreak5": stat.percenthouseholdsbreak5,
+            "percentHouseholdsBreak6": stat.percenthouseholdsbreak6,
+            "percentHouseholdsBreak7": stat.percenthouseholdsbreak7,
+            "percentHouseholdsBreak8": stat.percenthouseholdsbreak8,
+            "percentHouseholdsBreak9": stat.percenthouseholdsbreak9,
+            "percentHouseholdsBreak10": stat.percenthouseholdsbreak10,
+            "year": stat.year,
         } for stat in models.WageStats.query]
 
 
@@ -178,18 +184,24 @@ def construct_wagestats_for_county(fips, year=2013):
     stat = models.WageStats.query.filter_by(fips=fips).first_or_404()
     return {
         "fips": stat.fips,
-        "medianWage": stat.medianwage,
-        "medianHourly": stat.medianhourly,
+        "householdMedianIncome": stat.householdmedianincome,
+        "familyMedianIncome": stat.familymedianincome,
+        "marriedMedianIncome": stat.marriedmedianincome,
+        "nonFamilyMedianIncome": stat.nonfamilymedianincome,
         "lessThan10Hour": stat.lessthan10hour,
         "btwn10And15Hour": stat.btwn10and15hour,
         "totalUnder15": stat.totalunder15,
-        "totalPercentORJobs": stat.totalpercentorjobs,
-        "countySalary": stat.countysalary,
-        "countyWage": stat.countywage,
-        "countyWageH2": stat.countywageh2,
-        "countyWageRank": stat.countywagerank,
-        "countyWageH2Rank": stat.countywageh2rank,
-        "year": year
+        "percentHouseholdsBreak1": stat.percenthouseholdsbreak1,
+        "percentHouseholdsBreak2": stat.percenthouseholdsbreak2,
+        "percentHouseholdsBreak3": stat.percenthouseholdsbreak3,
+        "percentHouseholdsBreak4": stat.percenthouseholdsbreak4,
+        "percentHouseholdsBreak5": stat.percenthouseholdsbreak5,
+        "percentHouseholdsBreak6": stat.percenthouseholdsbreak6,
+        "percentHouseholdsBreak7": stat.percenthouseholdsbreak7,
+        "percentHouseholdsBreak8": stat.percenthouseholdsbreak8,
+        "percentHouseholdsBreak9": stat.percenthouseholdsbreak9,
+        "percentHouseholdsBreak10": stat.percenthouseholdsbreak10,
+        "year": stat.year,
     }
 
 
