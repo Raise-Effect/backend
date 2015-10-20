@@ -154,7 +154,7 @@ class SssWages(db.Model):
     county = db.relationship(u'County',
         backref=db.backref('sss_wages', lazy="dynamic"))
 
-
+#TODO: update WageStats model with new csv data
 class WageStats(db.Model):
     __tablename__ = 'wagestats'
 
@@ -180,15 +180,24 @@ class WageStats(db.Model):
 class CensusHousehold(db.Model):
     __tablename__ = 'censushousehold'
 
-    id = db.Column(db.Integer, primary_key=True)
+    censushouseholdid = db.Column(db.Integer, primary_key=True)
     fips = db.Column(db.ForeignKey(u'counties.fips'))
-    lowincomesingleadults = db.Column(db.Integer)
-    totalsingleadults = db.Column(db.Integer)
-    lowincomesingleparents = db.Column(db.Integer)
-    totalsingleparents = db.Column(db.Integer)
-    lowincomemarriedparents = db.Column(db.Integer)
-    totalmarriedparents = db.Column(db.Integer)
     totalhouseholds = db.Column(db.Integer)
+    totalmarriedfamilyhouseholds = db.Column(db.Integer)
+    totalnonfamilyhouseholds = db.Column(db.Integer)
+    totalunmarriedfamilyhouseholds = db.Column(db.Integer)
+    lowincomesingleparents = db.Column(db.Integer)
+    lowincomemarriedparents = db.Column(db.Integer)
+    lowincomesingleadults = db.Column(db.Integer)
+    marriedaspercenttotal = db.Column(db.Float)
+    lowincomemarriedparentsaspercenttotal = db.Column(db.Float)
+    lowincomemarriedparentsaspercentmarried = db.Column(db.Float)
+    unmarriedaspercenttotal = db.Column(db.Float)
+    lowincomesingleparentsaspercenttotal = db.Column(db.Float)
+    lowincomesingleparentsaspercentunmarried = db.Column(db.Float)
+    nonfamilyaspercenttotal = db.Column(db.Float)
+    lowincomesingleadultsaspercenttotal = db.Column(db.Float)
+    lowincomesingleadultsaspercentnonfamily = db.Column(db.Float)
 
     county = db.relationship(u'County',
         backref=db.backref('census_household', lazy="dynamic"))
