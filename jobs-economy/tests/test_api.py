@@ -160,7 +160,7 @@ class PopulationTestCase(ApiTestCase):
                     'urSeasonalAdj': 0.5,
                     'year': 2012
                 },
-                'population': {
+                'populations': {
                     'fips': 1234,
                     'population': 0.1,
                     'adults': 0.2,
@@ -201,7 +201,7 @@ class PopulationTestCase(ApiTestCase):
                     'a2AllPer': 0.3,
                     'c0AllPer': 0.4,
                 },
-                'sssBudget': [{
+                'sssBudgets': [{
                     'familyCode': 'a1i0p0s0t0',
                     'housing': 0.1,
                     'childcare': 0.2,
@@ -276,7 +276,7 @@ class PopulationTestCase(ApiTestCase):
             }]
         })
 
-    def test_population_all_counties(self):
+    def test_populations_all_counties(self):
         self.db.session.add(models.Population(
             fips=1234,
             population=0.1,
@@ -296,7 +296,7 @@ class PopulationTestCase(ApiTestCase):
             mostcommonfamilytype='a1i0p0s0t0',
             year=2012
         ))
-        self.assert_json_equal('/counties/population', {
+        self.assert_json_equal('/counties/populations', {
             'data': [{
                 'fips': 1234,
                 'population': 0.1,
@@ -374,7 +374,7 @@ class PopulationTestCase(ApiTestCase):
             }]
         })
 
-    def test_sssbudget_all_counties(self):
+    def test_sssbudgets_all_counties(self):
         self.db.session.add(models.SssBudget(
             familycode='a1i0p0s0t0',
             housing=0.1,
@@ -387,7 +387,7 @@ class PopulationTestCase(ApiTestCase):
             fips=1234,
             year=2012
         ))
-        self.assert_json_equal('/counties/sssbudget', {
+        self.assert_json_equal('/counties/sssbudgets', {
             'data': [
                 {
                     'familyCode': 'a1i0p0s0t0',
@@ -452,7 +452,7 @@ class PopulationTestCase(ApiTestCase):
             ]
         })
 
-    def test_puma_all_counties(self):
+    def test_pumas_all_counties(self):
         self.db.session.add(models.Puma(
             fips=1234,
             pumacode=5678,
@@ -461,7 +461,7 @@ class PopulationTestCase(ApiTestCase):
             pumapopulation=0.1,
             pumaweight=0.2
         ))
-        self.assert_json_equal('/counties/puma', {
+        self.assert_json_equal('/counties/pumas', {
             "data": [
                 {
                     "fips": 1234,
@@ -474,32 +474,8 @@ class PopulationTestCase(ApiTestCase):
             ]
         })
 
-    def test_census_household(self):
-        self.db.session.add(models.CensusHousehold(
-            fips=1234,
-            lowincomesingleadults=1,
-            totalsingleadults=2,
-            lowincomesingleparents=3,
-            totalsingleparents=4,
-            lowincomemarriedparents=5,
-            totalmarriedparents=6,
-            totalhouseholds=7
-        ))
-        self.db.session.commit()
-        self.assert_json_equal('/counties/1234/censushousehold', {
-            "data": {
-                "fips": 1234,
-                "lowIncomeSingleAdults": 1,
-                "totalSingleAdults": 2,
-                "lowIncomeSingleParents": 3,
-                "totalSingleParents": 4,
-                "lowIncomeMarriedParents": 5,
-                "totalMarriedParents": 6,
-                "totalHouseHolds": 7,
-            }
-        })
 
-    def test_census_household_all_counties(self):
+    def test_censushouseholds_all_counties(self):
         self.db.session.add(models.CensusHousehold(
             fips=1234,
             lowincomesingleadults=1,
@@ -511,9 +487,44 @@ class PopulationTestCase(ApiTestCase):
             totalhouseholds=7
         ))
         self.db.session.commit()
-        self.assert_json_equal('/counties/censushousehold', {
+        self.assert_json_equal('/counties/censushouseholds', {
             "data": [{
                 "fips": 1234,
+                "totalHouseholds": 1,
+                "totalMarriedFamilyHouseholds": 2,
+                "totalNonFamilyHouseholds": 3,
+                "totalUnmarriedFamilyHouseholds": 4,
+                "lowIncomeSingleParents": 5,
+                "lowIncomeMarriedParents": 6,
+                "lowIncomeSingleAdults": 7,
+                "marriedAsPercentTotal": 0.1,
+                "lowIncomeMarriedParentsAsPercentTotal": 0.2,
+                "lowIncomeMarriedParentsAsPercentMarried": 0.3,
+                "unmarriedAsPercentTotal": 0.4,
+                "lowIncomeSingleParentsAsPercentTotal": 0.5,
+                "lowIncomeSingleParentsAsPercentUnmarried": 0.6,
+                "nonFamilyAsPercentTotal": 0.7,
+                "lowIncomeSingleAdultsAsPercentTotal": 0.8,
+                "lowIncomeSingleAdultsAsPercentNonFamily": 0.9,
+            }]
+        })
+
+    def test_censushouseholds_for_county(self):
+        self.db.session.add(models.CensusHousehold(
+            fips=1234,
+            lowincomesingleadults=1,
+            totalsingleadults=2,
+            lowincomesingleparents=3,
+            totalsingleparents=4,
+            lowincomemarriedparents=5,
+            totalmarriedparents=6,
+            totalhouseholds=7
+        ))
+        self.db.session.commit()
+        self.assert_json_equal('/counties/1234/censushouseholds', {
+            "data": {
+                "fips": 1234,
+<<<<<<< 10202cdc138ccd6249f6b8c4bf293d21e6d6e422
                 "lowIncomeSingleAdults": 1,
                 "totalSingleAdults": 2,
                 "lowIncomeSingleParents": 3,
@@ -522,6 +533,25 @@ class PopulationTestCase(ApiTestCase):
                 "totalMarriedParents": 6,
                 "totalHouseHolds": 7,
             }]
+=======
+                "totalHouseholds": 1,
+                "totalMarriedFamilyHouseholds": 2,
+                "totalNonFamilyHouseholds": 3,
+                "totalUnmarriedFamilyHouseholds": 4,
+                "lowIncomeSingleParents": 5,
+                "lowIncomeMarriedParents": 6,
+                "lowIncomeSingleAdults": 7,
+                "marriedAsPercentTotal": 0.1,
+                "lowIncomeMarriedParentsAsPercentTotal": 0.2,
+                "lowIncomeMarriedParentsAsPercentMarried": 0.3,
+                "unmarriedAsPercentTotal": 0.4,
+                "lowIncomeSingleParentsAsPercentTotal": 0.5,
+                "lowIncomeSingleParentsAsPercentUnmarried": 0.6,
+                "nonFamilyAsPercentTotal": 0.7,
+                "lowIncomeSingleAdultsAsPercentTotal": 0.8,
+                "lowIncomeSingleAdultsAsPercentNonFamily": 0.9,
+            }
+>>>>>>> make all API resource names and corresponding function names plural
         })
 
     def test_county_404(self):
