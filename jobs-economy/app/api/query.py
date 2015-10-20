@@ -46,7 +46,8 @@ def construct_county(fips):
         'sssBudget': construct_sssbudget_for_county.__wrapped__(fips),
         'sssCredits': construct_ssscredits_for_county.__wrapped__(fips),
         'sssWages': construct_ssswages_for_county.__wrapped__(fips),
-        'censusHousehold': construct_censushousehold_for_county.__wrapped__(fips),
+        'censusHouseholds': construct_censushousehold_for_county.__wrapped__(fips),
+        'familyCodeWeights': construct_familycodeweight_for_county.__wrapped__(fips),
     }
 
 
@@ -338,13 +339,22 @@ def construct_censushousehold_all():
     return [
         {
             "fips": stat.fips,
-            "lowIncomeSingleAdults": stat.lowincomesingleadults,
-            "totalSingleAdults": stat.totalsingleadults,
+            "totalHouseholds": stat.totalhouseholds,
+            "totalMarriedFamilyHouseholds": stat.totalmarriedfamilyhouseholds,
+            "totalNonFamilyHouseholds": stat.totalnonfamilyhouseholds,
+            "totalUnmarriedFamilyHouseholds": stat.totalunmarriedfamilyhouseholds,
             "lowIncomeSingleParents": stat.lowincomesingleparents,
-            "totalSingleParents": stat.totalsingleparents,
             "lowIncomeMarriedParents": stat.lowincomemarriedparents,
-            "totalMarriedParents": stat.totalmarriedparents,
-            "totalHouseHolds": stat.totalhouseholds
+            "lowIncomeSingleAdults": stat.lowincomesingleadults,
+            "marriedAsPercentTotal": stat.marriedaspercenttotal,
+            "lowIncomeMarriedParentsAsPercentTotal": stat.lowincomemarriedparentsaspercenttotal,
+            "lowIncomeMarriedParentsAsPercentMarried": stat.lowincomemarriedparentsaspercentmarried,
+            "unmarriedAsPercentTotal": stat.unmarriedaspercenttotal,
+            "lowIncomeSingleParentsAsPercentTotal": stat.lowincomesingleparentsaspercenttotal,
+            "lowIncomeSingleParentsAsPercentUnmarried": stat.lowincomesingleparentsaspercentunmarried,
+            "nonFamilyAsPercentTotal": stat.nonfamilyaspercenttotal,
+            "lowIncomeSingleAdultsAsPercentTotal": stat.lowincomesingleadultsaspercenttotal,
+            "lowIncomeSingleAdultsAsPercentNonFamily": stat.lowincomesingleadultsaspercentnonfamily,
         } for stat in models.CensusHousehold.query]
 
 
@@ -353,13 +363,22 @@ def construct_censushousehold_for_county(fips):
     stat = models.CensusHousehold.query.filter_by(fips=fips).first_or_404()
     return {
         "fips": stat.fips,
-        "lowIncomeSingleAdults": stat.lowincomesingleadults,
-        "totalSingleAdults": stat.totalsingleadults,
+        "totalHouseholds": stat.totalhouseholds,
+        "totalMarriedFamilyHouseholds": stat.totalmarriedfamilyhouseholds,
+        "totalNonFamilyHouseholds": stat.totalnonfamilyhouseholds,
+        "totalUnmarriedFamilyHouseholds": stat.totalunmarriedfamilyhouseholds,
         "lowIncomeSingleParents": stat.lowincomesingleparents,
-        "totalSingleParents": stat.totalsingleparents,
         "lowIncomeMarriedParents": stat.lowincomemarriedparents,
-        "totalMarriedParents": stat.totalmarriedparents,
-        "totalHouseHolds": stat.totalhouseholds
+        "lowIncomeSingleAdults": stat.lowincomesingleadults,
+        "marriedAsPercentTotal": stat.marriedaspercenttotal,
+        "lowIncomeMarriedParentsAsPercentTotal": stat.lowincomemarriedparentsaspercenttotal,
+        "lowIncomeMarriedParentsAsPercentMarried": stat.lowincomemarriedparentsaspercentmarried,
+        "unmarriedAsPercentTotal": stat.unmarriedaspercenttotal,
+        "lowIncomeSingleParentsAsPercentTotal": stat.lowincomesingleparentsaspercenttotal,
+        "lowIncomeSingleParentsAsPercentUnmarried": stat.lowincomesingleparentsaspercentunmarried,
+        "nonFamilyAsPercentTotal": stat.nonfamilyaspercenttotal,
+        "lowIncomeSingleAdultsAsPercentTotal": stat.lowincomesingleadultsaspercenttotal,
+        "lowIncomeSingleAdultsAsPercentNonFamily": stat.lowincomesingleadultsaspercentnonfamily,
     }
 
 
@@ -368,7 +387,7 @@ def construct_familycodeweight_all():
     return [
         {
             "fips": stat.fips,
-            "familycode": stat.familycode,
+            "familyCode": stat.familycode,
             "weight": stat.weight,
         }
         for stat in models.FamilyCodeWeight.query]
@@ -379,7 +398,7 @@ def construct_familycodeweight_for_county(fips):
     return [
         {
             "fips": stat.fips,
-            "familycode": stat.familycode,
+            "familyCode": stat.familycode,
             "weight": stat.weight,
         }
         for stat in models.FamilyCodeWeight.query.filter_by(fips=fips)]

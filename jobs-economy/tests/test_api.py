@@ -34,7 +34,7 @@ class PopulationTestCase(ApiTestCase):
     def test_county_list(self):
         self.db.session.add(models.County(fips=1234, county="Abc"))
         self.db.session.commit()
-        self.assert_json_equal('/counties/', {
+        self.assert_json_equal('/counties', {
             'data': [{
                 'fips': 1234,
                 'name': 'Abc',
@@ -123,9 +123,33 @@ class PopulationTestCase(ApiTestCase):
             fips=1234,
             year=2012
         ))
-
+        self.db.session.add(models.CensusHousehold(
+            censushouseholdid=1,
+            fips=1234,
+            totalhouseholds=1,
+            totalmarriedfamilyhouseholds=2,
+            totalnonfamilyhouseholds=3,
+            totalunmarriedfamilyhouseholds=4,
+            lowincomesingleparents=5,
+            lowincomemarriedparents=6,
+            lowincomesingleadults=7,
+            marriedaspercenttotal=0.1,
+            lowincomemarriedparentsaspercenttotal=0.2,
+            lowincomemarriedparentsaspercentmarried=0.3,
+            unmarriedaspercenttotal=0.4,
+            lowincomesingleparentsaspercenttotal=0.5,
+            lowincomesingleparentsaspercentunmarried=0.6,
+            nonfamilyaspercenttotal=0.7,
+            lowincomesingleadultsaspercenttotal=0.8,
+            lowincomesingleadultsaspercentnonfamily=0.9,
+        ))
+        self.db.session.add(models.FamilyCodeWeight(
+            fips=1234,
+            familycode='a1i0p0s0t0',
+            weight=0.1,
+        ))
         self.db.session.commit()
-        self.assert_json_equal('/counties/1234/', {
+        self.assert_json_equal('/counties/1234', {
             'data': {
                 'laborStats': {
                     'fips': 1234,
@@ -206,6 +230,30 @@ class PopulationTestCase(ApiTestCase):
                     'annual': 0.3,
                     'fips': 1234,
                     'year': 2012
+                }],
+                'censusHouseholds': {
+                    "fips": 1234,
+                    "totalHouseholds": 1,
+                    "totalMarriedFamilyHouseholds": 2,
+                    "totalNonFamilyHouseholds": 3,
+                    "totalUnmarriedFamilyHouseholds": 4,
+                    "lowIncomeSingleParents": 5,
+                    "lowIncomeMarriedParents": 6,
+                    "lowIncomeSingleAdults": 7,
+                    "marriedAsPercentTotal": 0.1,
+                    "lowIncomeMarriedParentsAsPercentTotal": 0.2,
+                    "lowIncomeMarriedParentsAsPercentMarried": 0.3,
+                    "unmarriedAsPercentTotal": 0.4,
+                    "lowIncomeSingleParentsAsPercentTotal": 0.5,
+                    "lowIncomeSingleParentsAsPercentUnmarried": 0.6,
+                    "nonFamilyAsPercentTotal": 0.7,
+                    "lowIncomeSingleAdultsAsPercentTotal": 0.8,
+                    "lowIncomeSingleAdultsAsPercentNonFamily": 0.9,
+                },
+                'familyCodeWeights': [{
+                    "fips": 1234,
+                    "familyCode": "a1i0p0s0t0",
+                    "weight": 0.1,
                 }]
             }
         })
