@@ -185,20 +185,18 @@ Retrieve data for a particular county by including the county's FIPS code before
 #### Wage Statistics
 
 - **fips**:**integer** - _foreign key, references counties(fips)_
-- **medianWage**:**float** - _2012 Median Wage_
-- **medianHourly**:**float** - _2012 Median Wage - Hourly_
+-**householdMedianIncome**:**integer** - _ _
+-**familyMedianIncome**:**integer** - _ _
+-**marriedMedianIncome**:**integer** - _ _
+-**nonFamilyMedianIncome**:**integer** - _ _
 - **lessThan10Hour**:**float** - _Jobs paying less than $10/hr_
 - **btwn10And15Hour**:**float** -	_Jobs paying $10-$14.99_
 - **totalUnder15**:**float** - _Total Under $15/Hour_
-- **totalPercentORjobs**:**float** - _As a percentage of all <$15/hr Jobs in Oregon (717,403)_
-- **countySalary**:**float** -	_Average household SSS in county_
-- **countyWage**:**float** -	_Hourly rate for one FT job for county SSS_
-- **countyWageH2**:**float** -	_Average hourly SSW for working adult in county_
-- **countyWageRank**:**float** -	_Rank of countySSW_
-- **countyWageH2Rank**:**float** -	_Rank of countySSWH2_
+- **percentHouseholdsBreak1** - _ _
+  ...
+- **percentHouseholdsBreak10** - _ _
 - **year**:**integer** - _year represented by data_
 
-- **fips**:**integer** - _foreign key, references counties(fips)_
 #### Calculated Statistics
 
 - **fips**:**integer** - _foreign key, references counties(fips)_

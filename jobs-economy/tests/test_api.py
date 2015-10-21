@@ -549,16 +549,6 @@ class PopulationTestCase(ApiTestCase):
         self.assert_json_equal('/counties/1234/censushouseholds', {
             "data": {
                 "fips": 1234,
-<<<<<<< 10202cdc138ccd6249f6b8c4bf293d21e6d6e422
-                "lowIncomeSingleAdults": 1,
-                "totalSingleAdults": 2,
-                "lowIncomeSingleParents": 3,
-                "totalSingleParents": 4,
-                "lowIncomeMarriedParents": 5,
-                "totalMarriedParents": 6,
-                "totalHouseHolds": 7,
-            }]
-=======
                 "totalHouseholds": 1,
                 "totalMarriedFamilyHouseholds": 2,
                 "totalNonFamilyHouseholds": 3,
@@ -576,7 +566,6 @@ class PopulationTestCase(ApiTestCase):
                 "lowIncomeSingleAdultsAsPercentTotal": 0.8,
                 "lowIncomeSingleAdultsAsPercentNonFamily": 0.9,
             }
->>>>>>> make all API resource names and corresponding function names plural
         })
 
     def test_county_404(self):
