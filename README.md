@@ -48,14 +48,15 @@ The base URL is:
 
 ### Data sets
 
-* **Population**: `/population`
+* **Populations**: `/populations`
 * **Labor Statistics**: `/laborstats`
 * **Wage Statistics**: `/wagestats`
-* **Self-Sufficiency Standard Budget**: `/sssbudget`
+* **Self-Sufficiency Standard Budgets**: `/sssbudgets`
 * **Self-Sufficiency Standard Tax Credits**: `/ssscredits`
 * **Self-Sufficiency Standard Wages**: `/ssswages`
-* **PUMA codes**: `/puma`
-* **Census Household** `/censushousehold`
+* **PUMA Codes**: `/pumas`
+* **Census Households** `/censushouseholds`
+* **Family Code Weights** `/familycodeweights`
 * Additional **Calculated Statistics** (see API reference): `/calculatedstats`
 
 ### Example requests
@@ -108,22 +109,22 @@ Retrieve a particular data set by appending the corresponding URL:
 
 Retrieve data for a particular county by including the county's FIPS code before the data set. In this case, the "data" key contains a single object. The example below returns data for Clackamas county:
 ```
-    GET /api/v1/counties/41005/population
+    GET /api/v1/counties/41005/populations
 
     HTTP/1.1 200 OK
 
     {
       "data": {
-        "a1c0C": 23581.0,
-        "a1cC": 7742.0,
-        "a1teenC": 0.0,
-        "a2s2C": 2266.0,
+        "a1c0": 23581.0,
+        "a1c": 7742.0,
+        "a1teen": 0.0,
+        "a2s2": 2266.0,
         "adults": 1.912958,
         "fips": 41005,
         "kids": 0.871108,
-        "kidspresentc": 46179.0,
-        "mindiff": 1333.151101,
-        "mostcommonfamilytype": "a3i0p0s0t0",
+        "kidsPresent": 46179.0,
+        "minDiff": 1333.151101,
+        "mostCommonFamilyType": "a3i0p0s0t0",
         "population": 386080.0,
         "year": 2013
       }
@@ -168,7 +169,7 @@ Retrieve data for a particular county by including the county's FIPS code before
 - **a1c0Per**:**float** - _percent of households in county with a single adult and no children_
 - **a1teenPer**:**float** - _percent of households in county with a single adult under age 20_
 - **minDiff**:**float** - _absolute value of difference between famcode annual Standard and county average Standard_
-- **mostCommonFamilyType**:**float** - _family type with SSS that comes closest to county average SSS, foreign key references familytype(familycode)_
+- **mostCommonFamilyType**:**float** - _family type with SSS that comes closest to county average SSS, foreign key, references familytype(familycode)_
 - **year**:**integer** - _year represented by data_
 
 #### Labor Statistics
@@ -197,6 +198,7 @@ Retrieve data for a particular county by including the county's FIPS code before
 - **countyWageH2Rank**:**float** -	_Rank of countySSWH2_
 - **year**:**integer** - _year represented by data_
 
+- **fips**:**integer** - _foreign key, references counties(fips)_
 #### Calculated Statistics
 
 - **fips**:**integer** - _foreign key, references counties(fips)_
@@ -250,13 +252,22 @@ Retrieve data for a particular county by including the county's FIPS code before
 #### Census Household
 
 - **fips**:**integer** - _foreign key, references counties(fips)_
-- **lowIncomeSingleAdults**:**integer** - _number of low income single adults in county_
-- **totalSingleAdults**:**integer** - _number of single adults in county_
-- **lowIncomeSingleParents**:**integer** - _number of low income single parents in county_
-- **totalSingleParents**:**integer** - _number of single parents in county_
-- **lowIncomeMarriedParents**:**integer** - _number of low income married parents in county_
-- **totalMarriedParents**:**integer** - _number of married parents in county_
 - **totalHouseholds**:**integer** - _number of households in county_
+- **totalMarriedFamilyHouseholds**:**integer** - _ _
+- **totalNonFamilyHouseholds**:**integer** - _ _
+- **totalUnmarriedFamilyHouseholds**:**integer** - _ _
+- **lowIncomeSingleParents**:**integer** - _number of low income single parents in county_
+- **lowIncomeMarriedParents**:**integer** - _number of low income married parents in county_
+- **lowIncomeSingleAdults**:**integer** - _number of low income single adults in county_
+- **marriedAsPercentTotal**:**float** - _ _
+- **lowIncomeMarriedParentsAsPercentTotal**:**float** - _ _
+- **lowIncomeMarriedParentsAsPercentMarried**:**float** - _ _
+- **unmarriedAsPercentTotal**:**float** - _ _
+- **lowIncomeSingleParentsAsPercentTotal**:**float** - _ _
+- **lowIncomeSingleParentsAsPercentUnmarried**:**float** - _ _
+- **nonFamilyAsPercentTotal**:**float** - _ _
+- **lowIncomeSingleAdultsAsPercentTotal**:**float** - _ _
+- **lowIncomeSingleAdultsAsPercentNonFamily**:**float** - _ _
 
 #### Family Code Weights
 
