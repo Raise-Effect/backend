@@ -48,15 +48,16 @@ The base URL is:
 
 ### Data sets
 
-* **Population**: `/population`
+* **Populations**: `/populations`
 * **Labor Statistics**: `/laborstats`
 * **Wage Statistics**: `/wagestats`
-* **Self-Sufficiency Standard Budget**: `/sssbudget`
+* **Self-Sufficiency Standard Budgets**: `/sssbudgets`
 * **Self-Sufficiency Standard Tax Credits**: `/ssscredits`
 * **Self-Sufficiency Standard Wages**: `/ssswages`
-* **PUMA codes**: `/puma`
-* **Census Household** `/censushousehold`
-* **Additional Calculated Statistics** (see API reference): `/calculatedstats`
+* **PUMA Codes**: `/pumas`
+* **Census Households** `/censushouseholds`
+* **Family Code Weights** `/familycodeweights`
+* Additional **Calculated Statistics** (see API reference): `/calculatedstats`
 
 ### Example requests
 
@@ -108,22 +109,22 @@ Retrieve a particular data set by appending the corresponding URL:
 
 Retrieve data for a particular county by including the county's FIPS code before the data set. In this case, the "data" key contains a single object. The example below returns data for Clackamas county:
 ```
-    GET /api/v1/counties/41005/population
+    GET /api/v1/counties/41005/populations
 
     HTTP/1.1 200 OK
 
     {
       "data": {
-        "a1c0C": 23581.0,
-        "a1cC": 7742.0,
-        "a1teenC": 0.0,
-        "a2s2C": 2266.0,
+        "a1c0": 23581.0,
+        "a1c": 7742.0,
+        "a1teen": 0.0,
+        "a2s2": 2266.0,
         "adults": 1.912958,
         "fips": 41005,
         "kids": 0.871108,
-        "kidspresentc": 46179.0,
-        "mindiff": 1333.151101,
-        "mostcommonfamilytype": "a3i0p0s0t0",
+        "kidsPresent": 46179.0,
+        "minDiff": 1333.151101,
+        "mostCommonFamilyType": "a3i0p0s0t0",
         "population": 386080.0,
         "year": 2013
       }
@@ -140,71 +141,69 @@ Retrieve data for a particular county by including the county's FIPS code before
 
 #### Family Type
 
-- **familycode**:**string** - _SSS family code, primary key_
-- **descriptionfc**:**string** -	_description of the people in the household_
-- **familycoderollup**:**string** - _simplified family code that sums children regardless of age_
-- **descriptionfcr**:**string** -	_description of the people in the household_
+- **familyCode**:**string** - _SSS family code, primary key_
+- **descriptionFc**:**string** -	_description of the people in the household_
+- **familyCodeRollup**:**string** - _simplified family code that sums children regardless of age_
+- **descriptionFcr**:**string** -	_description of the people in the household_
 - **adult**:**string** - _number of adults_
 - **infant**:**integer** - _number of infants_
 - **preschooler**:**integer** - _number of preschoolers_
-- **school-age**:**integer** - _number of school-age children_
+- **schoolAge**:**integer** - _number of school-age children_
 - **teenager**:**integer** - _number of teenagers_
 - **children**:**integer** - _total number of children_
 
 #### Population
-_Many of these field names will likely be refactored so that fields like "a1c1C" are more descriptive._
-- **populationid**:**integer** - _serialized primary key_
+
 - **fips**:**integer** - _foreign key, references counties(fips)_
 - **population**:**float** - _estimated population as of July 1, 2014_
 - **adults**:**float** - _average number of adults in household by county_
 - **kids**:**float** - _average number of kids in household by county_
-- **kidspresentc**:**float** - _total households with kids in county_
-- **a1cC**:**float** - _total households with one adult and any children in county_
-- **a2s2C**:**float** - _total households with two adults and two school-age children in county_
-- **a1c0C**:**float** - _total households with one adult and no children in county_
-- **a1teenC**:**float** - _total households with a single adult under the age of 20 in county_
-- **kidspresentCper**:**float** - _percent of households in county with children_
-- **a1cCper**:**float** - _percent of households in county with a single adult and children_
-- **a2s2Cper**:**float** - _percent of households in county with two adults and two school-age children_
-- **a1c0Cper**:**float** - _percent of households in county with a single adult and no children_
-- **a1teenCper**:**float** - _percent of households in county with a single adult under age 20_
-- **mindiff**:**float** - _absolute value of difference between famcode annual Standard and county average Standard_
-- **mostcommonfamilytype**:**float** - _family type with SSS that comes closest to county average SSS, foreign key references familytype(familycode)_
+- **kidsPresent**:**float** - _total households with kids in county_
+- **a1c**:**float** - _total households with one adult and any children in county_
+- **a2s2**:**float** - _total households with two adults and two school-age children in county_
+- **a1c0**:**float** - _total households with one adult and no children in county_
+- **a1teen**:**float** - _total households with a single adult under the age of 20 in county_
+- **kidsPresentPer**:**float** - _percent of households in county with children_
+- **a1cPer**:**float** - _percent of households in county with a single adult and children_
+- **a2s2Per**:**float** - _percent of households in county with two adults and two school-age children_
+- **a1c0Per**:**float** - _percent of households in county with a single adult and no children_
+- **a1teenPer**:**float** - _percent of households in county with a single adult under age 20_
+- **minDiff**:**float** - _absolute value of difference between famcode annual Standard and county average Standard_
+- **mostCommonFamilyType**:**float** - _family type with SSS that comes closest to county average SSS, foreign key, references familytype(familycode)_
 - **year**:**integer** - _year represented by data_
 
 #### Labor Statistics
 
 - **fips**:**integer** - _foreign key, references counties(fips)_
-- **laborforce**:**float** - _civilian labor force_
+- **laborForce**:**float** - _civilian labor force_
 - **employed**:**float** - _employed_
 - **unemployed**:**float** - _unemployed_
-- **unemploymentrate**:**float** - _unemployment rate (UR)_
-- **urseasonaladj**:**float** - _seasonally adjusted UR_
+- **unemploymentRate**:**float** - _unemployment rate (UR)_
+- **urSeasonalAdj**:**float** - _seasonally adjusted UR_
 - **year**:**integer** - _year represented by data_
 
 #### Wage Statistics
 
 - **fips**:**integer** - _foreign key, references counties(fips)_
-- **medianwage**:**float** - _2012 Median Wage_
-- **medianhourly**:**float** - _2012 Median Wage - Hourly_
-- **lessthan10hour**:**float** - _Jobs paying less than $10/hr_
-- **btwn10and15hour**:**float** -	_Jobs paying $10-$14.99_
-- **totalunder15hour**:**float** - _Total Under $15/Hour_
-- **totalpercentORjobs**:**float** - _As a percentage of all <$15/hr Jobs in Oregon (717,403)_
-- **countySSS**:**float** -	_Average household SSS in county_
-- **countySSW**:**float** -	_Hourly rate for one FT job for county SSS_
-- **countySSWH2**:**float** -	_Average hourly SSW for working adult in county_
-- **countySSWrank**:**float** -	_Rank of countySSW_
-- **countySSWH2rank**:**float** -	_Rank of countySSWH2_
+-**householdMedianIncome**:**integer** - _ _
+-**familyMedianIncome**:**integer** - _ _
+-**marriedMedianIncome**:**integer** - _ _
+-**nonFamilyMedianIncome**:**integer** - _ _
+- **lessThan10Hour**:**float** - _Jobs paying less than $10/hr_
+- **btwn10And15Hour**:**float** -	_Jobs paying $10-$14.99_
+- **totalUnder15**:**float** - _Total Under $15/Hour_
+- **percentHouseholdsBreak1** - _ _
+  ...
+- **percentHouseholdsBreak10** - _ _
 - **year**:**integer** - _year represented by data_
 
 #### Calculated Statistics
 
 - **fips**:**integer** - _foreign key, references counties(fips)_
-- **percentorkids**:**float** - _Percentage of State's kids_
-- **a1allper**:**float** - _percentage Single Adults with and without children_
-- **a2allper**:**float** - _percentage Couples_
-- **c0allper**:**float** - _percentage households with no children_
+- **percentORKids**:**float** - _Percentage of State's kids_
+- **a1AllPer**:**float** - _percentage Single Adults with and without children_
+- **a2AllPer**:**float** - _percentage Couples_
+- **c0AllPer**:**float** - _percentage households with no children_
 
 #### Self-Sufficiency Standard Budget
 
@@ -222,16 +221,16 @@ _Many of these field names will likely be refactored so that fields like "a1c1C"
 #### Self-Sufficiency Standard Tax Credits
 
 - **familycode**:**string** - _foreign key, references familytype(familycode)_
-- **oregonworkingfamilychildcare**:**float** - _amount that can be deducted monthly for oregon working family childcare tax credit (stored as negative value)_
-- **earnedincometax**:**float** - _amount that can be deducted monthly for earned income tax credit (stored as negative value)_
-- **childcaretax**:**float** - _amount that can be deducted monthly for childcare tax credit (stored as negative value)_
-- **childtax**:**float** - _amount that can be deducted monthly for child tax credit (stored as negative value)_
+- **oregonWorkingFamilyCredit**:**float** - _amount that can be deducted monthly for oregon working family childcare tax credit (stored as negative value)_
+- **earnedIncomeTax**:**float** - _amount that can be deducted monthly for earned income tax credit (stored as negative value)_
+- **childcareTax**:**float** - _amount that can be deducted monthly for childcare tax credit (stored as negative value)_
+- **childTax**:**float** - _amount that can be deducted monthly for child tax credit (stored as negative value)_
 - **fips**:**integer** - _foreign key, references counties(fips)_
 - **year**:**integer** -_year represented by data_
 
 #### Self-Sufficiency Standard Wages
 
-- **familycode**:**string** - _foreign key, references familytype(familycode)_
+- **familyCode**:**string** - _foreign key, references familytype(familycode)_
 - **hourly**:**float** - _hourly self sufficiency standard wage_
 - **qualifier**:**text** - _describes whether wage applies to individuals or couples_
 - **monthly**:**float** - _monthly self sufficiency standard wage_
@@ -242,21 +241,34 @@ _Many of these field names will likely be refactored so that fields like "a1c1C"
 #### PUMA codes
 
 - **fips**:**integer** - _foreign key, references counties(fips)_
-- **pumacode**:**integer** - _puma code_
-- **areaname**:**text** - _short name of puma area_
-- **pumaname**:**text** - _long name of puma area_
-- **pumapopulation**:**float** - _population of puma area_
-- **pumaweight**:**float** - _weight of puma area_
+- **pumaCode**:**integer** - _puma code_
+- **areaName**:**text** - _short name of puma area_
+- **pumaName**:**text** - _long name of puma area_
+- **pumaPopulation**:**float** - _population of puma area_
+- **pumaWeight**:**float** - _weight of puma area_
 
 #### Census Household
 
 - **fips**:**integer** - _foreign key, references counties(fips)_
-- **lowIncomeSingleAdults**:**integer** - number of low income single adults in county 
-- **totalSingleAdults**:**integer** - number of single adults in county
-- **lowIncomeSingleParents**:**integer** - number of low income single parents in county
-- **totalSingleParents**:**integer** - number of single parents in county
-- **lowIncomeMarriedParents**:**integer** - number of low income married parents in county
-- **totalMarriedParents**:**integer** - number of married parents in county
-- **totalHouseholds**:**integer** - number of households in county
+- **totalHouseholds**:**integer** - _number of households in county_
+- **totalMarriedFamilyHouseholds**:**integer** - _ _
+- **totalNonFamilyHouseholds**:**integer** - _ _
+- **totalUnmarriedFamilyHouseholds**:**integer** - _ _
+- **lowIncomeSingleParents**:**integer** - _number of low income single parents in county_
+- **lowIncomeMarriedParents**:**integer** - _number of low income married parents in county_
+- **lowIncomeSingleAdults**:**integer** - _number of low income single adults in county_
+- **marriedAsPercentTotal**:**float** - _ _
+- **lowIncomeMarriedParentsAsPercentTotal**:**float** - _ _
+- **lowIncomeMarriedParentsAsPercentMarried**:**float** - _ _
+- **unmarriedAsPercentTotal**:**float** - _ _
+- **lowIncomeSingleParentsAsPercentTotal**:**float** - _ _
+- **lowIncomeSingleParentsAsPercentUnmarried**:**float** - _ _
+- **nonFamilyAsPercentTotal**:**float** - _ _
+- **lowIncomeSingleAdultsAsPercentTotal**:**float** - _ _
+- **lowIncomeSingleAdultsAsPercentNonFamily**:**float** - _ _
 
+#### Family Code Weights
 
+- **fips**:**integer** _foreign key, references counties(fips)_
+- **familyCode**:**string** _foreign key, references familytype(familycode)_
+- **weight**:**float** _portion of county population that matches family type, where total county population is 1_

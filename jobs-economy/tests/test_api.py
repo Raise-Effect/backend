@@ -34,7 +34,7 @@ class PopulationTestCase(ApiTestCase):
     def test_county_list(self):
         self.db.session.add(models.County(fips=1234, county="Abc"))
         self.db.session.commit()
-        self.assert_json_equal('/counties/', {
+        self.assert_json_equal('/counties', {
             'data': [{
                 'fips': 1234,
                 'name': 'Abc',
@@ -80,17 +80,23 @@ class PopulationTestCase(ApiTestCase):
         ))
         self.db.session.add(models.WageStats(
             fips=1234,
-            medianwage=0.1,
-            medianhourly=0.2,
-            lessthan10hour=0.3,
-            btwn10and15hour=0.4,
-            totalunder15=0.5,
-            totalpercentorjobs=0.6,
-            countysalary=0.7,
-            countywage=0.8,
-            countywageh2=0.9,
-            countywagerank=0.11,
-            countywageh2rank=0.12,
+            householdmedianincome=1,
+            familymedianincome=2,
+            marriedmedianincome=3,
+            nonfamilymedianincome=4,
+            lessthan10hour=0.1,
+            btwn10and15hour=0.2,
+            totalunder15=0.3,
+            percenthouseholdsbreak1=0.4,
+            percenthouseholdsbreak2=0.5,
+            percenthouseholdsbreak3=0.6,
+            percenthouseholdsbreak4=0.7,
+            percenthouseholdsbreak5=0.8,
+            percenthouseholdsbreak6=0.9,
+            percenthouseholdsbreak7=0.11,
+            percenthouseholdsbreak8=0.12,
+            percenthouseholdsbreak9=0.13,
+            percenthouseholdsbreak10=0.14,
             year=2013
         ))
         self.db.session.add(models.SssBudget(
@@ -123,9 +129,33 @@ class PopulationTestCase(ApiTestCase):
             fips=1234,
             year=2012
         ))
-
+        self.db.session.add(models.CensusHousehold(
+            censushouseholdid=1,
+            fips=1234,
+            totalhouseholds=1,
+            totalmarriedfamilyhouseholds=2,
+            totalnonfamilyhouseholds=3,
+            totalunmarriedfamilyhouseholds=4,
+            lowincomesingleparents=5,
+            lowincomemarriedparents=6,
+            lowincomesingleadults=7,
+            marriedaspercenttotal=0.1,
+            lowincomemarriedparentsaspercenttotal=0.2,
+            lowincomemarriedparentsaspercentmarried=0.3,
+            unmarriedaspercenttotal=0.4,
+            lowincomesingleparentsaspercenttotal=0.5,
+            lowincomesingleparentsaspercentunmarried=0.6,
+            nonfamilyaspercenttotal=0.7,
+            lowincomesingleadultsaspercenttotal=0.8,
+            lowincomesingleadultsaspercentnonfamily=0.9,
+        ))
+        self.db.session.add(models.FamilyCodeWeight(
+            fips=1234,
+            familycode='a1i0p0s0t0',
+            weight=0.1,
+        ))
         self.db.session.commit()
-        self.assert_json_equal('/counties/1234/', {
+        self.assert_json_equal('/counties/1234', {
             'data': {
                 'laborStats': {
                     'fips': 1234,
@@ -136,7 +166,7 @@ class PopulationTestCase(ApiTestCase):
                     'urSeasonalAdj': 0.5,
                     'year': 2012
                 },
-                'population': {
+                'populations': {
                     'fips': 1234,
                     'population': 0.1,
                     'adults': 0.2,
@@ -157,17 +187,23 @@ class PopulationTestCase(ApiTestCase):
                 },
                 'wageStats': {
                     'fips': 1234,
-                    'medianWage': 0.1,
-                    'medianHourly': 0.2,
-                    'lessThan10Hour': 0.3,
-                    'btwn10And15Hour': 0.4,
-                    'totalUnder15': 0.5,
-                    'totalPercentORJobs': 0.6,
-                    'countySalary': 0.7,
-                    'countyWage': 0.8,
-                    'countyWageH2': 0.9,
-                    'countyWageRank': 0.11,
-                    'countyWageH2Rank': 0.12,
+                    'householdMedianIncome': 1,
+                    'familyMedianIncome': 2,
+                    'marriedMedianIncome': 3,
+                    'nonFamilyMedianIncome': 4,
+                    'lessThan10Hour': 0.1,
+                    'btwn10And15Hour': 0.2,
+                    'totalUnder15': 0.3,
+                    'percentHouseholdsBreak1': 0.4,
+                    'percentHouseholdsBreak2': 0.5,
+                    'percentHouseholdsBreak3': 0.6,
+                    'percentHouseholdsBreak4': 0.7,
+                    'percentHouseholdsBreak5': 0.8,
+                    'percentHouseholdsBreak6': 0.9,
+                    'percentHouseholdsBreak7': 0.11,
+                    'percentHouseholdsBreak8': 0.12,
+                    'percentHouseholdsBreak9': 0.13,
+                    'percentHouseholdsBreak10': 0.14,
                     'year': 2013
                 },
                 'calculatedStats': {
@@ -177,7 +213,7 @@ class PopulationTestCase(ApiTestCase):
                     'a2AllPer': 0.3,
                     'c0AllPer': 0.4,
                 },
-                'sssBudget': [{
+                'sssBudgets': [{
                     'familyCode': 'a1i0p0s0t0',
                     'housing': 0.1,
                     'childcare': 0.2,
@@ -206,6 +242,30 @@ class PopulationTestCase(ApiTestCase):
                     'annual': 0.3,
                     'fips': 1234,
                     'year': 2012
+                }],
+                'censusHouseholds': {
+                    "fips": 1234,
+                    "totalHouseholds": 1,
+                    "totalMarriedFamilyHouseholds": 2,
+                    "totalNonFamilyHouseholds": 3,
+                    "totalUnmarriedFamilyHouseholds": 4,
+                    "lowIncomeSingleParents": 5,
+                    "lowIncomeMarriedParents": 6,
+                    "lowIncomeSingleAdults": 7,
+                    "marriedAsPercentTotal": 0.1,
+                    "lowIncomeMarriedParentsAsPercentTotal": 0.2,
+                    "lowIncomeMarriedParentsAsPercentMarried": 0.3,
+                    "unmarriedAsPercentTotal": 0.4,
+                    "lowIncomeSingleParentsAsPercentTotal": 0.5,
+                    "lowIncomeSingleParentsAsPercentUnmarried": 0.6,
+                    "nonFamilyAsPercentTotal": 0.7,
+                    "lowIncomeSingleAdultsAsPercentTotal": 0.8,
+                    "lowIncomeSingleAdultsAsPercentNonFamily": 0.9,
+                },
+                'familyCodeWeights': [{
+                    "fips": 1234,
+                    "familyCode": "a1i0p0s0t0",
+                    "weight": 0.1,
                 }]
             }
         })
@@ -228,7 +288,7 @@ class PopulationTestCase(ApiTestCase):
             }]
         })
 
-    def test_population_all_counties(self):
+    def test_populations_all_counties(self):
         self.db.session.add(models.Population(
             fips=1234,
             population=0.1,
@@ -248,7 +308,7 @@ class PopulationTestCase(ApiTestCase):
             mostcommonfamilytype='a1i0p0s0t0',
             year=2012
         ))
-        self.assert_json_equal('/counties/population', {
+        self.assert_json_equal('/counties/populations', {
             'data': [{
                 'fips': 1234,
                 'population': 0.1,
@@ -295,38 +355,51 @@ class PopulationTestCase(ApiTestCase):
     def test_wagestats_all_counties(self):
         self.db.session.add(models.WageStats(
             fips=1234,
-            medianwage=0.1,
-            medianhourly=0.2,
-            lessthan10hour=0.3,
-            btwn10and15hour=0.4,
-            totalunder15=0.5,
-            totalpercentorjobs=0.6,
-            countysalary=0.7,
-            countywage=0.8,
-            countywageh2=0.9,
-            countywagerank=0.11,
-            countywageh2rank=0.12,
+            householdmedianincome=1,
+            familymedianincome=2,
+            marriedmedianincome=3,
+            nonfamilymedianincome=4,
+            lessthan10hour=0.1,
+            btwn10and15hour=0.2,
+            totalunder15=0.3,
+            percenthouseholdsbreak1=0.4,
+            percenthouseholdsbreak2=0.5,
+            percenthouseholdsbreak3=0.6,
+            percenthouseholdsbreak4=0.7,
+            percenthouseholdsbreak5=0.8,
+            percenthouseholdsbreak6=0.9,
+            percenthouseholdsbreak7=0.11,
+            percenthouseholdsbreak8=0.12,
+            percenthouseholdsbreak9=0.13,
+            percenthouseholdsbreak10=0.14,
             year=2013
         ))
-        self.assert_json_equal('/counties/wagestats', {
+        self.assert_json_equal('/counties/wagestats',
+        {
             'data': [{
                 'fips': 1234,
-                'medianWage': 0.1,
-                'medianHourly': 0.2,
-                'lessThan10Hour': 0.3,
-                'btwn10And15Hour': 0.4,
-                'totalUnder15': 0.5,
-                'totalPercentORJobs': 0.6,
-                'countySalary': 0.7,
-                'countyWage': 0.8,
-                'countyWageH2': 0.9,
-                'countyWageRank': 0.11,
-                'countyWageH2Rank': 0.12,
+                'householdMedianIncome': 1,
+                'familyMedianIncome': 2,
+                'marriedMedianIncome': 3,
+                'nonFamilyMedianIncome': 4,
+                'lessThan10Hour': 0.1,
+                'btwn10And15Hour': 0.2,
+                'totalUnder15': 0.3,
+                'percentHouseholdsBreak1': 0.4,
+                'percentHouseholdsBreak2': 0.5,
+                'percentHouseholdsBreak3': 0.6,
+                'percentHouseholdsBreak4': 0.7,
+                'percentHouseholdsBreak5': 0.8,
+                'percentHouseholdsBreak6': 0.9,
+                'percentHouseholdsBreak7': 0.11,
+                'percentHouseholdsBreak8': 0.12,
+                'percentHouseholdsBreak9': 0.13,
+                'percentHouseholdsBreak10': 0.14,
                 'year': 2013
             }]
         })
 
-    def test_sssbudget_all_counties(self):
+    def test_sssbudgets_all_counties(self):
         self.db.session.add(models.SssBudget(
             familycode='a1i0p0s0t0',
             housing=0.1,
@@ -339,7 +412,7 @@ class PopulationTestCase(ApiTestCase):
             fips=1234,
             year=2012
         ))
-        self.assert_json_equal('/counties/sssbudget', {
+        self.assert_json_equal('/counties/sssbudgets', {
             'data': [
                 {
                     'familyCode': 'a1i0p0s0t0',
@@ -404,7 +477,7 @@ class PopulationTestCase(ApiTestCase):
             ]
         })
 
-    def test_puma_all_counties(self):
+    def test_pumas_all_counties(self):
         self.db.session.add(models.Puma(
             fips=1234,
             pumacode=5678,
@@ -413,7 +486,7 @@ class PopulationTestCase(ApiTestCase):
             pumapopulation=0.1,
             pumaweight=0.2
         ))
-        self.assert_json_equal('/counties/puma', {
+        self.assert_json_equal('/counties/pumas', {
             "data": [
                 {
                     "fips": 1234,
@@ -426,32 +499,8 @@ class PopulationTestCase(ApiTestCase):
             ]
         })
 
-    def test_census_household(self):
-        self.db.session.add(models.CensusHousehold(
-            fips=1234,
-            lowincomesingleadults=1,
-            totalsingleadults=2,
-            lowincomesingleparents=3,
-            totalsingleparents=4,
-            lowincomemarriedparents=5,
-            totalmarriedparents=6,
-            totalhouseholds=7
-        ))
-        self.db.session.commit()
-        self.assert_json_equal('/counties/1234/censushousehold', {
-            "data": {
-                "fips": 1234,
-                "lowIncomeSingleAdults": 1,
-                "totalSingleAdults": 2,
-                "lowIncomeSingleParents": 3,
-                "totalSingleParents": 4,
-                "lowIncomeMarriedParents": 5,
-                "totalMarriedParents": 6,
-                "totalHouseHolds": 7,
-            }
-        })
 
-    def test_census_household_all_counties(self):
+    def test_censushouseholds_all_counties(self):
         self.db.session.add(models.CensusHousehold(
             fips=1234,
             lowincomesingleadults=1,
@@ -463,17 +512,60 @@ class PopulationTestCase(ApiTestCase):
             totalhouseholds=7
         ))
         self.db.session.commit()
-        self.assert_json_equal('/counties/censushousehold', {
+        self.assert_json_equal('/counties/censushouseholds', {
             "data": [{
                 "fips": 1234,
-                "lowIncomeSingleAdults": 1,
-                "totalSingleAdults": 2,
-                "lowIncomeSingleParents": 3,
-                "totalSingleParents": 4,
-                "lowIncomeMarriedParents": 5,
-                "totalMarriedParents": 6,
-                "totalHouseHolds": 7,
+                "totalHouseholds": 1,
+                "totalMarriedFamilyHouseholds": 2,
+                "totalNonFamilyHouseholds": 3,
+                "totalUnmarriedFamilyHouseholds": 4,
+                "lowIncomeSingleParents": 5,
+                "lowIncomeMarriedParents": 6,
+                "lowIncomeSingleAdults": 7,
+                "marriedAsPercentTotal": 0.1,
+                "lowIncomeMarriedParentsAsPercentTotal": 0.2,
+                "lowIncomeMarriedParentsAsPercentMarried": 0.3,
+                "unmarriedAsPercentTotal": 0.4,
+                "lowIncomeSingleParentsAsPercentTotal": 0.5,
+                "lowIncomeSingleParentsAsPercentUnmarried": 0.6,
+                "nonFamilyAsPercentTotal": 0.7,
+                "lowIncomeSingleAdultsAsPercentTotal": 0.8,
+                "lowIncomeSingleAdultsAsPercentNonFamily": 0.9,
             }]
+        })
+
+    def test_censushouseholds_for_county(self):
+        self.db.session.add(models.CensusHousehold(
+            fips=1234,
+            lowincomesingleadults=1,
+            totalsingleadults=2,
+            lowincomesingleparents=3,
+            totalsingleparents=4,
+            lowincomemarriedparents=5,
+            totalmarriedparents=6,
+            totalhouseholds=7
+        ))
+        self.db.session.commit()
+        self.assert_json_equal('/counties/1234/censushouseholds', {
+            "data": {
+                "fips": 1234,
+                "totalHouseholds": 1,
+                "totalMarriedFamilyHouseholds": 2,
+                "totalNonFamilyHouseholds": 3,
+                "totalUnmarriedFamilyHouseholds": 4,
+                "lowIncomeSingleParents": 5,
+                "lowIncomeMarriedParents": 6,
+                "lowIncomeSingleAdults": 7,
+                "marriedAsPercentTotal": 0.1,
+                "lowIncomeMarriedParentsAsPercentTotal": 0.2,
+                "lowIncomeMarriedParentsAsPercentMarried": 0.3,
+                "unmarriedAsPercentTotal": 0.4,
+                "lowIncomeSingleParentsAsPercentTotal": 0.5,
+                "lowIncomeSingleParentsAsPercentUnmarried": 0.6,
+                "nonFamilyAsPercentTotal": 0.7,
+                "lowIncomeSingleAdultsAsPercentTotal": 0.8,
+                "lowIncomeSingleAdultsAsPercentNonFamily": 0.9,
+            }
         })
 
     def test_county_404(self):

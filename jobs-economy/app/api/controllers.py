@@ -80,22 +80,22 @@ def laborstats_for_county(fips):
     return query.construct_laborstats_for_county(fips)
 
 
-@api.route('counties/population', methods=['GET'])
+@api.route('counties/populations', methods=['GET'])
 @crossdomain(origin='*')
-def population_all():
-    return query.construct_population_all()
+def populations_all():
+    return query.construct_populations_all()
 
 
-@api.route('counties/<int:fips>/population', methods=['GET'])
+@api.route('counties/<int:fips>/populations', methods=['GET'])
 @crossdomain(origin='*')
-def population_for_county(fips):
-    return query.construct_population_for_county(fips)
+def populations_for_county(fips):
+    return query.construct_populations_for_county(fips)
 
 
-@api.route('counties/familytype', methods=['GET'])
+@api.route('counties/familytypes', methods=['GET'])
 @crossdomain(origin='*')
-def familytype_all():
-    return query.construct_familytype_all()
+def familytypes_all():
+    return query.construct_familytypes_all()
 
 
 @api.route('counties/wagestats', methods=['GET'])
@@ -123,16 +123,16 @@ def calculatedstats_for_county(fips):
     return query.construct_calculatedstats_for_county(fips)
 
 
-@api.route('counties/sssbudget', methods=['GET'])
+@api.route('counties/sssbudgets', methods=['GET'])
 @crossdomain(origin='*')
-def sssbudget_all():
-    return query.construct_sssbudget_all()
+def sssbudgets_all():
+    return query.construct_sssbudgets_all()
 
 
-@api.route('counties/<int:fips>/sssbudget', methods=['GET'])
+@api.route('counties/<int:fips>/sssbudgets', methods=['GET'])
 @crossdomain(origin='*')
-def sssbudget_for_county(fips):
-    return query.construct_sssbudget_for_county(fips)
+def sssbudgets_for_county(fips):
+    return query.construct_sssbudgets_for_county(fips)
 
 
 @api.route('counties/ssscredits', methods=['GET'])
@@ -159,40 +159,40 @@ def ssswages_for_county(fips):
     return query.construct_ssswages_for_county(fips)
 
 
-@api.route('counties/puma', methods=['GET'])
+@api.route('counties/pumas', methods=['GET'])
 @crossdomain(origin='*')
-def puma_all():
-    return query.construct_puma_all()
+def pumas_all():
+    return query.construct_pumas_all()
 
 
-@api.route('counties/<int:fips>/puma', methods=['GET'])
+@api.route('counties/<int:fips>/pumas', methods=['GET'])
 @crossdomain(origin='*')
-def puma_for_county(fips):
-    return query.construct_puma_for_county(fips)
+def pumas_for_county(fips):
+    return query.construct_pumas_for_county(fips)
 
 
-@api.route('counties/censushousehold', methods=['GET'])
+@api.route('counties/censushouseholds', methods=['GET'])
 @crossdomain(origin='*')
-def censushousehold_all():
-    return query.construct_censushousehold_all()
+def censushouseholds_all():
+    return query.construct_censushouseholds_all()
 
 
-@api.route('counties/<int:fips>/censushousehold', methods=['GET'])
+@api.route('counties/<int:fips>/censushouseholds', methods=['GET'])
 @crossdomain(origin='*')
-def censushousehold_for_county(fips):
-    return query.construct_censushousehold_for_county(fips)
+def censushouseholds_for_county(fips):
+    return query.construct_censushouseholds_for_county(fips)
 
 
-@api.route('counties/familycodeweight', methods=['GET'])
+@api.route('counties/familycodeweights', methods=['GET'])
 @crossdomain(origin='*')
-def familycodeweight_all():
-    return query.construct_familycodeweight_all()
+def familycodeweights_all():
+    return query.construct_familycodeweights_all()
 
 
-@api.route('counties/<int:fips>/familycodeweight', methods=['GET'])
+@api.route('counties/<int:fips>/familycodeweights', methods=['GET'])
 @crossdomain(origin='*')
-def familycodeweight_for_county(fips):
-    return query.construct_familycodeweight_for_county(fips)
+def familycodeweights_for_county(fips):
+    return query.construct_familycodeweights_for_county(fips)
 
 
 @api.errorhandler(404)
