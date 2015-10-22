@@ -166,7 +166,7 @@ class WageStats(db.Model):
     nonfamilymedianincome = db.Column(db.Integer)
     lessthan10hour = db.Column(db.Float)
     btwn10and15hour = db.Column(db.Float)
-    totalunder15 = db.Column(db.Float)
+    totalunder15hour = db.Column(db.Float)
     percenthouseholdsbreak1 = db.Column(db.Float)
     percenthouseholdsbreak2 = db.Column(db.Float)
     percenthouseholdsbreak3 = db.Column(db.Float)
