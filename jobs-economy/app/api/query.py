@@ -365,8 +365,8 @@ def construct_censushouseholds_all():
             "lowIncomeSingleParentsAsPercentTotal": stat.lowincomesingleparentsaspercenttotal,
             "lowIncomeSingleParentsAsPercentUnmarried": stat.lowincomesingleparentsaspercentunmarried,
             "nonFamilyAsPercentTotal": stat.nonfamilyaspercenttotal,
-            "lowIncomeSingleAdultsAsPercentTotal": stat.lowincomesingleadultaspercenttotal,
-            "lowIncomeSingleAdultsAsPercentNonFamily": stat.lowincomesingleadultaspercentnonfamily,
+            "lowIncomeSingleAdultsAsPercentTotal": stat.lowincomesingleadultsaspercenttotal,
+            "lowIncomeSingleAdultsAsPercentNonFamily": stat.lowincomesingleadultsaspercentnonfamily,
         } for stat in models.CensusHousehold.query]
 
 

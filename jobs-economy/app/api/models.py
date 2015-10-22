@@ -202,8 +202,8 @@ class CensusHousehold(db.Model):
     lowincomesingleparentsaspercenttotal = db.Column(db.Float)
     lowincomesingleparentsaspercentunmarried = db.Column(db.Float)
     nonfamilyaspercenttotal = db.Column(db.Float)
-    lowincomesingleadultaspercenttotal = db.Column(db.Float)
-    lowincomesingleadultaspercentnonfamily = db.Column(db.Float)
+    lowincomesingleadultsaspercenttotal = db.Column(db.Float)
+    lowincomesingleadultsaspercentnonfamily = db.Column(db.Float)
 
     county = db.relationship(u'County',
         backref=db.backref('census_household', lazy="dynamic"))
